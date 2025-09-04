@@ -2,8 +2,9 @@ import { useState } from 'react';
 import { Container } from 'react-bootstrap';
 import type { Step2ProductsProps } from '../../interfaces/Step2Products.interface';
 import type { ProductProps } from '../../interfaces/Product.interface';
-import ProductForm from '../../components/ProductForm/ProductForm';
+
 import ProductTable from '../../components/ProductTable/ProductTable';
+import ProductForm from '../../components/ProductForm/ProductForm/ProductForm';
 
 const Step2Productos = ({ initialProducts = [], onNext, onBack }: Step2ProductsProps) => {
     const [products, setProducts] = useState<ProductProps[]>(initialProducts);

@@ -27,8 +27,16 @@ const ProductTable = ({ products, onUpdate, onDelete }: ProductTableProps) => {
                     <td>{p.category}</td>
                     <td>{p.paymentMethod}</td>
                     <td>
-                    <button onClick={() => onUpdate(i, p)}>Editar</button>
-                    <button onClick={() => onDelete(i)}>Eliminar</button>
+                    <button
+                        className='btn btn-sm btn-primary me-2'
+                        onClick={() => onUpdate(i, p)}>
+                            Editar
+                    </button>
+                    <button
+                        className='btn btn-sm btn-danger'
+                        onClick={() => onDelete(i)}>
+                            Eliminar
+                    </button>
                     </td>
                 </tr>
                 ))}
