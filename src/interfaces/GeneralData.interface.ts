@@ -1,4 +1,4 @@
-export interface GeneralData {
+export interface GeneralDataProps {
     reason: string;
     personInCharge: string;
     departureDate?:  string;

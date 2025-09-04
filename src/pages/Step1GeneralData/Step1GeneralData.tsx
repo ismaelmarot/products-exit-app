@@ -1,9 +1,9 @@
 import { Form, Row, Col } from 'react-bootstrap';
 import { useState } from 'react';
-import type { GeneralData } from '../../interfaces/GeneralData.interface';
+import type { GeneralDataProps } from '../../interfaces/GeneralData.interface';
 
 const Step1GeneralData = () => {
-    const [data, setData] = useState<GeneralData>({
+    const [data, setData] = useState<GeneralDataProps>({
         reason: '',
         personInCharge: '',
         departureDate:  '',
