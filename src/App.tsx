@@ -18,16 +18,16 @@ function App() {
         className='mb-3'
         justify
       >
-        <Tab eventKey='step1' title="Datos Generales">
+        <Tab eventKey='step1' title="1. Datos Generales">
           <Step1GeneralData />
         </Tab>
-        <Tab eventKey='step2' title="Productos">
+        <Tab eventKey='step2' title="2. Productos">
           <Step2Products />
         </Tab>
-        <Tab eventKey='step3' title="Previsualización">
+        <Tab eventKey='step3' title="3. Previsualización">
           <Step3Preview />
         </Tab>
-        <Tab eventKey='step4' title="PDF">
+        <Tab eventKey='step4' title="4. Final / PDF">
           <Step4PDF />
         </Tab>
       </Tabs>
