@@ -1,12 +1,12 @@
-import { Form, Row, Col } from 'react-bootstrap';
 import { useState } from 'react';
 import type { GeneralDataProps } from '../../interfaces/GeneralData.interface';
+import GeneralDataForm from '../../components/GeneralDataForm/GeneralDataForm';
 
 const Step1GeneralData = () => {
     const [data, setData] = useState<GeneralDataProps>({
         reason: '',
         personInCharge: '',
-        departureDate:  '',
+        departureDate: '',
         returnDate: '',
     });
 
@@ -15,62 +15,10 @@ const Step1GeneralData = () => {
     };
 
     return (
-        <Form>
-        <Row className='mb-3'>
-            <Col md={6}>
-            <Form.Group controlId='reason'>
-                <Form.Label>Motivo del egreso *</Form.Label>
-                <Form.Control
-                type='text'
-                name='reason'
-                placeholder='Ingrese el motivo'
-                value={data.reason}
-                onChange={handleChange}
-                required
-                />
-            </Form.Group>
-            </Col>
-            <Col md={6}>
-            <Form.Group controlId='personInCharge'>
-                <Form.Label>Responsable *</Form.Label>
-                <Form.Control
-                type='text'
-                name='personInCharge'
-                placeholder='Nombre del responsable'
-                value={data.personInCharge}
-                onChange={handleChange}
-                required
-                />
-            </Form.Group>
-            </Col>
-        </Row>
-
-        <Row className='mb-3'>
-            <Col md={6}>
-            <Form.Group controlId='departureDate'>
-                <Form.Label>Fecha de salida *</Form.Label>
-                <Form.Control
-                type='date'
-                name='departureDate'
-                value={data.departureDate}
-                onChange={handleChange}
-                required
-                />
-            </Form.Group>
-            </Col>
-            <Col md={6}>
-            <Form.Group controlId='returnDate'>
-                <Form.Label>Fin (opcional)</Form.Label>
-                <Form.Control
-                type='date'
-                name='returnDate'
-                value={data.returnDate}
-                onChange={handleChange}
-                />
-            </Form.Group>
-            </Col>
-        </Row>
-        </Form>
+        <div>
+        <h2>Pestaña 1 - Datos Generales</h2>
+        <GeneralDataForm data={data} onChange={handleChange} />
+        </div>
     );
 };
 
