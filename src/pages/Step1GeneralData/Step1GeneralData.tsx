@@ -16,7 +16,7 @@ const Step1GeneralData = () => {
 
     return (
         <div>
-        <h2>Pestaña 1 - Datos Generales</h2>
+        <h2>Datos Generales</h2>
         <GeneralDataForm data={data} onChange={handleChange} />
         </div>
     );
