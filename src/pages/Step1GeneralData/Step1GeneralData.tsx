@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import type { GeneralDataProps } from '../../interfaces/GeneralData.interface';
+import type { Step1GeneralDataProps } from '../../interfaces/Step1GeneralData.interface';
 import GeneralDataForm from '../../components/GeneralDataForm/GeneralDataForm';
 
 const Step1GeneralData = () => {
-    const [data, setData] = useState<GeneralDataProps>({
+    const [data, setData] = useState<Step1GeneralDataProps>({
         reason: '',
         personInCharge: '',
         departureDate: '',

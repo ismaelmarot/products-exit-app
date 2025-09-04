@@ -1,4 +1,4 @@
-export interface GeneralDataProps {
+export interface Step1GeneralDataProps {
     reason: string;
     personInCharge: string;
     departureDate?:  string;
