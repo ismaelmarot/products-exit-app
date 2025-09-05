@@ -1,34 +1,59 @@
-// import { render, screen, fireEvent } from '@testing-library/react';
-// import Step1GeneralData from './Step1GeneralData';
-// import { describe, it, expect } from 'vitest';
+import { render, screen, fireEvent } from '@testing-library/react';
+import { vi } from 'vitest';
+import Step1GeneralData from './Step1GeneralData';
+import { AppContext } from '../../context/AppContext';
+import type { AppContextProps } from '../../interfaces/AppContextProps.interface';
 
-// describe('Step1GeneralData', () => {
-//     it('renderiza todos los campos correctamente', () => {
-//         render(<Step1GeneralData />);
+describe('Step1GeneralData', () => {
+  const mockOnNext = vi.fn();
+  const mockSetGeneralData = vi.fn();
 
-//         expect(screen.getByLabelText(/Motivo del egreso/i)).toBeInTheDocument();
-//         expect(screen.getByLabelText(/Responsable/i)).toBeInTheDocument();
-//         expect(screen.getByLabelText(/Fecha de salida/i)).toBeInTheDocument();
-//         expect(screen.getByLabelText(/Fin/i)).toBeInTheDocument();
-//     });
+  const contextValue: AppContextProps = {
+    generalData: { reason: '', personInCharge: '', departureDate: '', returnDate: '' },
+    setGeneralData: mockSetGeneralData,
+    products: [],
+    setProducts: vi.fn(),
+  };
 
-//     it('permite ingresar valores en los campos', () => {
-//         render(<Step1GeneralData />);
+  beforeEach(() => {
+    render(
+      <AppContext.Provider value={contextValue}>
+        <Step1GeneralData onNext={mockOnNext} />
+      </AppContext.Provider>
+    );
+  });
 
-//         const reasonInput = screen.getByLabelText(/Motivo del egreso/i);
-//         fireEvent.change(reasonInput, { target: { value: 'Venta' } });
-//         expect((reasonInput as HTMLInputElement).value).toBe('Venta');
+  it('renders the title', () => {
+    expect(screen.getByText('Datos Generales')).toBeInTheDocument();
+  });
 
-//         const personInput = screen.getByLabelText(/Responsable/i);
-//         fireEvent.change(personInput, { target: { value: 'Ismael' } });
-//         expect((personInput as HTMLInputElement).value).toBe('Ismael');
+  it('updates input values on change', () => {
+    const reasonInput = screen.getByLabelText(/Motivo/i);
+    const personInput = screen.getByLabelText(/Responsable/i);
 
-//         const departureInput = screen.getByLabelText(/Fecha de salida/i);
-//         fireEvent.change(departureInput, { target: { value: '2025-09-04' } });
-//         expect((departureInput as HTMLInputElement).value).toBe('2025-09-04');
+    fireEvent.change(reasonInput, { target: { value: 'Viaje de prueba' } });
+    fireEvent.change(personInput, { target: { value: 'Carlos' } });
 
-//         const returnInput = screen.getByLabelText(/Fin/i);
-//         fireEvent.change(returnInput, { target: { value: '2025-09-10' } });
-//         expect((returnInput as HTMLInputElement).value).toBe('2025-09-10');
-//     });
-// });
+    expect(reasonInput).toHaveValue('Viaje de prueba');
+    expect(personInput).toHaveValue('Carlos');
+  });
+
+  it('calls setGeneralData and onNext when clicking Siguiente', () => {
+    const reasonInput = screen.getByLabelText(/Motivo/i);
+    const personInput = screen.getByLabelText(/Responsable/i);
+
+    fireEvent.change(reasonInput, { target: { value: 'Viaje de prueba' } });
+    fireEvent.change(personInput, { target: { value: 'Carlos' } });
+
+    const nextButton = screen.getByText('Siguiente');
+    fireEvent.click(nextButton);
+
+    expect(mockSetGeneralData).toHaveBeenCalledWith({
+      reason: 'Viaje de prueba',
+      personInCharge: 'Carlos',
+      departureDate: '',
+      returnDate: '',
+    });
+    expect(mockOnNext).toHaveBeenCalled();
+  });
+});
