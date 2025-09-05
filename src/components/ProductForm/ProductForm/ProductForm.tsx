@@ -1,5 +1,5 @@
 import { useState, type ChangeEvent } from 'react';
-import { Form, Row, Col, Button } from 'react-bootstrap';
+import { Row, Col, Button } from 'react-bootstrap';
 import type { ProductProps } from '../../../interfaces/Product.interface';
 import type { ProductFormProps } from '../../../interfaces/ProductForm';
 import ProductInput from '../ProductInput/ProductInput';
