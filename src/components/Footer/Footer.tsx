@@ -10,7 +10,7 @@ const Footer: React.FC = () => {
 
     return (
         <>
-        <FooterStyled className='container py-3 border-top'>
+        <FooterStyled className='container border-top'>
             <div className='row align-items-center text-center text-md-start'>
                 <div className='col-12 col-md-6 mb-2 mb-md-0'>
                     <p className='mb-0'>

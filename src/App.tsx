@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Container, Tab, Tabs } from "react-bootstrap";
+import { useState } from 'react';
+import { Container, Tab, Tabs } from 'react-bootstrap';
 import Step1GeneralData from './pages/Step1GeneralData/Step1GeneralData';
 import Step2Products from './pages/Step2Products/Step2Products';
 import Step3Preview from './pages/Step3Preview/Step3Preview';
@@ -22,34 +22,36 @@ function App() {
   };
 
   return (
-    <Container className='mt-4'>
-      <h1 className='mb-4 text-center'>Products Exit App</h1>
-      <Tabs
-        id='salida-productos-tabs'
-        activeKey={key}
-        onSelect={(k) => k && setKey(k)}
-        className='mb-3'
-        justify
-      >
-        <Tab eventKey='step1' title="1. Datos Generales">
-          <Step1GeneralData onNext={() => setKey('step2')} />
-        </Tab>
-        <Tab eventKey='step2' title="2. Productos">
-          <Step2Products
-            initialProducts={[]}
-            onNext={handleNext}
-            onBack={handleBack}
-          />
-        </Tab>
-        <Tab eventKey='step3' title="3. Previsualización">
-          <Step3Preview />
-        </Tab>
-        <Tab eventKey='step4' title="4. Final / PDF">
-          <Step4PDF />
-        </Tab>
-      </Tabs>
+    <div className='d-flex flex-column min-vh-100'>
+      <Container className='flex-fill mt-4'>
+        <h1 className='mb-4 text-center'>Products Exit App</h1>
+        <Tabs
+          id='salida-productos-tabs'
+          activeKey={key}
+          onSelect={(k) => k && setKey(k)}
+          className='mb-3'
+          justify
+        >
+          <Tab eventKey='step1' title="1. Datos Generales">
+            <Step1GeneralData onNext={() => setKey('step2')} />
+          </Tab>
+          <Tab eventKey='step2' title="2. Productos">
+            <Step2Products
+              initialProducts={[]}
+              onNext={handleNext}
+              onBack={handleBack}
+            />
+          </Tab>
+          <Tab eventKey='step3' title="3. Previsualización">
+            <Step3Preview />
+          </Tab>
+          <Tab eventKey='step4' title="4. Final / PDF">
+            <Step4PDF />
+          </Tab>
+        </Tabs>
+      </Container>
       <Footer />
-    </Container>
+    </div>
   );
 }
 
