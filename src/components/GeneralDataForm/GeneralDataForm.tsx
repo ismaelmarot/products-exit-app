@@ -9,7 +9,7 @@ const GeneralDataForm = ({ data, onChange }: GeneralDataFormProps) => {
             <Row>
                 <Col md={6}>
                 <FormInput
-                    label="Motivo del egreso*"
+                    label="Motivo egreso*"
                     name='reason'
                     value={data.reason}
                     onChange={onChange}
@@ -29,7 +29,7 @@ const GeneralDataForm = ({ data, onChange }: GeneralDataFormProps) => {
             <Row>
                 <Col md={6}>
                 <FormInput
-                    label="Fecha de salida*"
+                    label="Fecha salida*"
                     name='departureDate'
                     value={data.departureDate || ''}
                     onChange={onChange}
@@ -39,7 +39,7 @@ const GeneralDataForm = ({ data, onChange }: GeneralDataFormProps) => {
                 </Col>
                 <Col md={6}>
                 <FormInput
-                    label={<>Fin<OptionalText>(opcional)</OptionalText></>}
+                    label={<>Fecha regreso<OptionalText>(opcional)</OptionalText></>}
                     name='returnDate'
                     value={data.returnDate || ''}
                     onChange={onChange}
