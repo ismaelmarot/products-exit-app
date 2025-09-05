@@ -11,7 +11,7 @@ describe('Footer', () => {
 
     test('opens and closes LegalModal when clicking the Legal button', async () => {
         render(<Footer />);
-        const legalButton = screen.getByRole('button', { name: 'Legal' });
+        const legalButton = screen.getByRole('button', { name: 'Legal' } );
         fireEvent.click(legalButton);
 
         const closeButton = screen.getByLabelText('Close');

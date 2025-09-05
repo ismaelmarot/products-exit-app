@@ -1,47 +1,47 @@
 import type { ProductTableProps } from '../../interfaces/ProductTable.interface';
-import { TableStyled } from './ProductTable.styled';
+import { TableStyled, TableWrapper } from './ProductTable.styled';
 
 const ProductTable = ({ products, onUpdate, onDelete }: ProductTableProps) => {
     return (
-        <TableStyled>
-            <thead>
-                <tr>
-                <th>Descripción</th>
-                {/* <th>Productor</th> */}
-                {/* <th>Rubro</th> */}
-                <th>Cant</th>
-                <th>Código</th>
-                <th>$ Venta</th>
-                {/* <th>Forma de pago</th> */}
-                <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                {products.map((p, i) => (
-                <tr key={i}>
-                    <td>{p.description}</td>
-                    {/* <td>{p.producer}</td> */}
-                    {/* <td>{p.category}</td> */}
-                    <td>{p.quantity}</td>
-                    <td>{p.code}</td>
-                    <td>{p.price}</td>
-                    {/* <td>{p.paymentMethod}</td> */}
-                    <td>
-                    <button
-                        className='btn btn-sm btn-primary me-2'
-                        onClick={() => onUpdate(i, p)}>
-                            Editar
-                    </button>
-                    <button
-                        className='btn btn-sm btn-danger'
-                        onClick={() => onDelete(i)}>
-                            Eliminar
-                    </button>
-                    </td>
-                </tr>
-                ))}
-            </tbody>
-        </TableStyled>
+        <TableWrapper>
+            <TableStyled>
+                <thead>
+                    <tr>
+                        <th>Descripción</th>
+                        <th className='text-end'>Cant</th>
+                        <th className='text-end'>Código</th>
+                        <th className='text-end'>$ Venta</th>
+                        <th className='text-center'>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {products.map((p, i) => (
+                        <tr key={i}>
+                            <td>{p.description}</td>
+                            <td className='text-end'>{p.quantity}</td>
+                            <td className='text-end'>{p.code}</td>
+                            <td className='text-end'>{p.price}</td>
+                            <td className='text-center'>
+                                <div className='d-flex justify-content-center gap-2'>
+                                    <button
+                                        className='btn btn-sm btn-primary'
+                                        onClick={() => onUpdate(i, p)}
+                                    >
+                                        Editar
+                                    </button>
+                                    <button
+                                        className='btn btn-sm btn-danger'
+                                        onClick={() => onDelete(i)}
+                                    >
+                                        Eliminar
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+            </TableStyled>
+        </TableWrapper>
     );
 };
 

@@ -6,3 +6,8 @@ export const TableStyled = styled(Table)`
     margin-top: 2rem;
     border-collapse: collapse;
 `;
+
+export const TableWrapper = styled.div`
+    width: 100%;
+    overflow-x: auto;
+`;
