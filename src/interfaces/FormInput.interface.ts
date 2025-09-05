@@ -1,5 +1,5 @@
 export interface FormInputProps {
-    label: string;
+    label: string | React.ReactNode;
     name: string;
     value: string;
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;

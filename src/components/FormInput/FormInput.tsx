@@ -1,7 +1,6 @@
 import { Form } from 'react-bootstrap';
 import type { FormInputProps } from '../../interfaces/FormInput.interface';
 
-
 const FormInput = ({
     label,
     name,

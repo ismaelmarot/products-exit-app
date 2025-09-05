@@ -5,6 +5,7 @@ import type { ProductProps } from '../../interfaces/Product.interface';
 
 import ProductTable from '../../components/ProductTable/ProductTable';
 import ProductForm from '../../components/ProductForm/ProductForm/ProductForm';
+import { ContainerStyled } from './Step2Products.styled';
 
 const Step2Productos = ({ initialProducts = [], onNext, onBack }: Step2ProductsProps) => {
     const [products, setProducts] = useState<ProductProps[]>(initialProducts);
@@ -25,22 +26,19 @@ const Step2Productos = ({ initialProducts = [], onNext, onBack }: Step2ProductsP
     };
 
     return (
-        <Container>
-        <h2>Productos</h2>
-
-        <ProductForm onAdd={addProduct} />
-
-        <ProductTable
-            products={products}
-            onUpdate={updateProduct}
-            onDelete={deleteProduct}
-        />
-
-        <div style={{ marginTop: "1rem" }}>
-            <button className="btn btn-secondary me-2" onClick={onBack}>Atrás</button>
-            <button className="btn btn-primary" onClick={() => onNext(products)}>Siguiente</button>
-        </div>
-        </Container>
+        <ContainerStyled>
+            <h2>Productos</h2>
+            <ProductForm onAdd={addProduct} />
+            <div className='d-flex justify-content-between mt-3'>
+                <button className='btn btn-secondary me-2' onClick={onBack}>Atrás</button>
+                <button className='btn btn-primary' onClick={() => onNext(products)}>Siguiente</button>
+            </div>
+            <ProductTable
+                products={products}
+                onUpdate={updateProduct}
+                onDelete={deleteProduct}
+            />
+        </ContainerStyled>
     );
 };
 

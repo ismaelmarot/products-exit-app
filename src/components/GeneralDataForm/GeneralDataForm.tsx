@@ -1,7 +1,7 @@
 import { Row, Col } from 'react-bootstrap';
 import type { GeneralDataFormProps } from '../../interfaces/GeneralDataForm.interface';
 import FormInput from '../FormInput/FormInput';
-import { FormStyled } from './GenerlaDataForm.styled';
+import { FormStyled, OptionalText } from './GenerlaDataForm.styled';
 
 const GeneralDataForm = ({ data, onChange }: GeneralDataFormProps) => {
     return (
@@ -41,7 +41,7 @@ const GeneralDataForm = ({ data, onChange }: GeneralDataFormProps) => {
                 </Col>
                 <Col md={6}>
                 <FormInput
-                    label="Fin (opcional)"
+                    label={<>Fin<OptionalText>(opcional)</OptionalText></>}
                     name='returnDate'
                     value={data.returnDate || ''}
                     onChange={onChange}

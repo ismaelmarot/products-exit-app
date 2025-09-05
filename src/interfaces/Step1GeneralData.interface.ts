@@ -4,3 +4,7 @@ export interface Step1GeneralDataProps {
     departureDate?:  string;
     returnDate?: string;
 }
+
+export interface Step1GeneralDataComponentProps {
+    onNext: () => void;
+}
