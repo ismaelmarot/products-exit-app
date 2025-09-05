@@ -1,7 +1,12 @@
 import { render, screen } from '@testing-library/react';
 import Step3Preview from './Step3Preview';
+import { AppProvider } from '../../context/AppContext';
 
 test('Render: Step3Previsualizacion', () => {
-    render(<Step3Preview />);
-    expect(screen.getByText("Pestaña 3 - Previsualización")).toBeInTheDocument();
+  render(
+    <AppProvider>
+      <Step3Preview onBack={() => {}} onNext={() => {}} />
+    </AppProvider>
+  );
+  expect(screen.getByText("Previsualización")).toBeInTheDocument();
 });

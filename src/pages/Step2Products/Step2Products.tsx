@@ -1,12 +1,16 @@
-import { useState } from 'react';
+import { useContext } from 'react';
 import type { Step2ProductsProps } from '../../interfaces/Step2Products.interface';
 import type { ProductProps } from '../../interfaces/Product.interface';
 import ProductTable from '../../components/ProductTable/ProductTable';
 import ProductForm from '../../components/ProductForm/ProductForm/ProductForm';
 import { ContainerStyled } from './Step2Products.styled';
+import { AppContext } from '../../context/AppContext';
 
-const Step2Productos = ({ initialProducts = [], onNext, onBack }: Step2ProductsProps) => {
-    const [products, setProducts] = useState<ProductProps[]>(initialProducts);
+const Step2Productos = ({ onNext, onBack }: Step2ProductsProps) => {
+    const context = useContext(AppContext);
+    if (!context) return null;
+
+    const { products, setProducts } = context;
 
     const addProduct = (product: ProductProps) => {
         setProducts([...products, product]);
@@ -27,10 +31,13 @@ const Step2Productos = ({ initialProducts = [], onNext, onBack }: Step2ProductsP
         <ContainerStyled>
             <h2>Productos</h2>
             <ProductForm onAdd={addProduct} />
+
             <div className='d-flex justify-content-between mt-3'>
                 <button className='btn btn-secondary me-2' onClick={onBack}>Atrás</button>
-                <button className='btn btn-primary' onClick={() => onNext(products)}>Siguiente</button>
+                <button className='btn btn-primary' onClick={onNext}>Siguiente</button>
+
             </div>
+
             <ProductTable
                 products={products}
                 onUpdate={updateProduct}
