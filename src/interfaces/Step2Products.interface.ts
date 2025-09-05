@@ -1,7 +1,6 @@
-import type { Product } from './Product.interface';
-
+import type { ProductProps } from './Product.interface';
 export interface Step2ProductsProps {
-    initialProducts?: Product[];
-    onNext: (products: Product[]) => void;
+    initialProducts?: ProductProps[];
+    onNext: (products: ProductProps[]) => void;
     onBack: () => void;
 }

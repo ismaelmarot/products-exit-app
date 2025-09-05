@@ -22,8 +22,8 @@ function App() {
   };
 
   return (
-    <div className='d-flex flex-column min-vh-100'>
-      <Container className='flex-fill mt-4'>
+    <div className='d-flex flex-column align-items-center min-vh-100'>
+      <Container className='flex-fill mt-4' style={{margin:'0'}}>
         <h1 className='mb-4 text-center'>Products Exit App</h1>
         <Tabs
           id='salida-productos-tabs'
