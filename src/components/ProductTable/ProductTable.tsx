@@ -7,12 +7,12 @@ const ProductTable = ({ products, onUpdate, onDelete }: ProductTableProps) => {
             <thead>
                 <tr>
                 <th>Descripción</th>
-                <th>Cantidad</th>
+                {/* <th>Productor</th> */}
+                {/* <th>Rubro</th> */}
+                <th>Cant</th>
                 <th>Código</th>
-                <th>Precio</th>
-                <th>Productor</th>
-                <th>Rubro</th>
-                <th>Forma de pago</th>
+                <th>$ Venta</th>
+                {/* <th>Forma de pago</th> */}
                 <th>Acciones</th>
                 </tr>
             </thead>
@@ -20,12 +20,12 @@ const ProductTable = ({ products, onUpdate, onDelete }: ProductTableProps) => {
                 {products.map((p, i) => (
                 <tr key={i}>
                     <td>{p.description}</td>
+                    {/* <td>{p.producer}</td> */}
+                    {/* <td>{p.category}</td> */}
                     <td>{p.quantity}</td>
                     <td>{p.code}</td>
                     <td>{p.price}</td>
-                    <td>{p.producer}</td>
-                    <td>{p.category}</td>
-                    <td>{p.paymentMethod}</td>
+                    {/* <td>{p.paymentMethod}</td> */}
                     <td>
                     <button
                         className='btn btn-sm btn-primary me-2'

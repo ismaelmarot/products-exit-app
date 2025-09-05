@@ -50,7 +50,7 @@ const ProductForm = ({ onAdd }: ProductFormProps) => {
       <Row className='mb-2'>
         <Col md={6}>
           <ProductInput
-            label="Productor"
+            label="Productor*"
             name='producer'
             value={product.producer}
             onChange={handleChange}
@@ -63,12 +63,11 @@ const ProductForm = ({ onAdd }: ProductFormProps) => {
             name='category'
             value={product.category}
             onChange={handleChange}
-            required
           />
         </Col>
         <Col md={12}>
           <ProductInput
-            label="Descripción (obligatorio)"
+            label="Descripción*"
             name='description'
             value={product.description}
             onChange={handleChange}
@@ -92,6 +91,7 @@ const ProductForm = ({ onAdd }: ProductFormProps) => {
             name='code'
             value={product.code}
             onChange={handleChange}
+            required
           />
         </Col>
         <Col md={4}>

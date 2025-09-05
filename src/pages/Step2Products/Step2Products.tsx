@@ -1,8 +1,6 @@
 import { useState } from 'react';
-import { Container } from 'react-bootstrap';
 import type { Step2ProductsProps } from '../../interfaces/Step2Products.interface';
 import type { ProductProps } from '../../interfaces/Product.interface';
-
 import ProductTable from '../../components/ProductTable/ProductTable';
 import ProductForm from '../../components/ProductForm/ProductForm/ProductForm';
 import { ContainerStyled } from './Step2Products.styled';
