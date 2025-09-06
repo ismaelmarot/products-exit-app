@@ -31,7 +31,7 @@ const renderWithContext = (onBack = vi.fn(), onNext = vi.fn()) =>
   );
 
 describe('Step3Preview', () => {
-  it('renderiza los datos generales en formato dd/mm/yyyy', () => {
+  it('render general data in format dd/mm/yyyy', () => {
     renderWithContext();
     expect(screen.getByTestId('salida')).toHaveTextContent('06/09/2025');
     expect(screen.getByTestId('regreso')).toHaveTextContent('08/09/2025');
@@ -39,7 +39,7 @@ describe('Step3Preview', () => {
     expect(screen.getByTestId('responsable')).toHaveTextContent('Juan');
   });
 
-  it('renderiza los productos en la tabla', () => {
+  it('render Products in table', () => {
     renderWithContext();
     expect(screen.getByText('Prod A')).toBeInTheDocument();
     expect(screen.getByText('Prod B')).toBeInTheDocument();
@@ -47,7 +47,7 @@ describe('Step3Preview', () => {
     expect(screen.getByText('Desc B')).toBeInTheDocument();
   });
 
-  it('ejecuta callbacks al presionar botones', () => {
+  it('execute callbacks when press buttons', () => {
     const onBack = vi.fn();
     const onNext = vi.fn();
     renderWithContext(onBack, onNext);
@@ -59,7 +59,7 @@ describe('Step3Preview', () => {
     expect(onNext).toHaveBeenCalled();
   });
 
-  it('permite ordenar productos por productor ascendente/descendente', () => {
+  it('allows you to sort products by producer ascending/descending', () => {
     renderWithContext();
 
     const orderSelect = screen.getByTestId('order-select-0');
@@ -68,8 +68,7 @@ describe('Step3Preview', () => {
     const sortTypeSelect = screen.getByTestId('sort-type');
     fireEvent.change(sortTypeSelect, { target: { value: 'desc' } });
 
-    // Verificamos que el primer producto sea el de mayor productor según orden descendente
-    const firstRow = screen.getAllByRole('row')[1]; // [0] es header
+    const firstRow = screen.getAllByRole('row')[1];
     expect(firstRow).toHaveTextContent('Prod B');
   });
 });

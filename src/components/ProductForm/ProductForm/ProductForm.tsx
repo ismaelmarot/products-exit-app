@@ -32,7 +32,7 @@ const ProductForm = ({ onAdd }: ProductFormProps) => {
   };
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  e.preventDefault();
     onAdd(product);
     setProduct({
       description: '',

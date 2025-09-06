@@ -19,7 +19,7 @@ export const FormStyled = styled(Form)`
 `;
 
 export const OptionalText = styled.span`
-    font-size: 0.8rem;
+    font-size: 0.6rem;
     color: gray;
     margin-left: 0.2rem;
 `;
