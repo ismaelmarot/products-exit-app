@@ -3,6 +3,7 @@ import { Row, Col, Table, Button } from 'react-bootstrap';
 import { AppContext } from '../../context/AppContext';
 import type { Step3PreviewProps } from '../../interfaces/Step3Preview.interface';
 import type { ProductProps } from '../../interfaces/Product.interface';
+import { formatDate } from '../../helpers/formatDate/formatDate';
 
 const Step3Preview: React.FC<Step3PreviewProps> = ({ onBack, onNext }) => {
     const context = useContext(AppContext);
@@ -38,14 +39,12 @@ const Step3Preview: React.FC<Step3PreviewProps> = ({ onBack, onNext }) => {
     return (
         <div>
             <h2>Previsualización</h2>
-
             <Row className='mb-3'>
                 <Col md={6}><strong>Motivo:</strong> <span data-testid="motivo">{generalData.reason}</span></Col>
                 <Col md={6}><strong>Responsable:</strong> <span data-testid="responsable">{generalData.personInCharge}</span></Col>
-                <Col md={6}><strong>Salida:</strong> <span data-testid="salida">{generalData.departureDate}</span></Col>
-                <Col md={6}><strong>Regreso:</strong> <span data-testid="regreso">{generalData.returnDate || '-'}</span></Col>
+                <Col md={6}><strong>Salida:</strong> <span data-testid="salida">{formatDate(generalData.departureDate)}</span></Col>
+                <Col md={6}><strong>Regreso:</strong> <span data-testid="regreso">{formatDate(generalData.returnDate) || '-'}</span></Col>
             </Row>
-
             <div className='d-flex gap-2 mb-3'>
                 {[order1, order2, order3].map((val, idx) => (
                     <select

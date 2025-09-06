@@ -1,64 +1,75 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-import { vi } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import Step3Preview from './Step3Preview';
 import { AppContext } from '../../context/AppContext';
-import type { AppContextProps } from '../../interfaces/AppContextProps.interface';
+import type { ProductProps } from '../../interfaces/Product.interface';
+
+const mockGeneralData = {
+  reason: 'Prueba motivo',
+  personInCharge: 'Juan',
+  departureDate: '2025-09-06',
+  returnDate: '2025-09-08',
+};
+
+const mockProducts: ProductProps[] = [
+  { producer: 'Prod A', category: 'Cat A', code: '001', description: 'Desc A', quantity: 1, price: 100 },
+  { producer: 'Prod B', category: 'Cat B', code: '002', description: 'Desc B', quantity: 2, price: 200 },
+];
+
+const renderWithContext = (onBack = vi.fn(), onNext = vi.fn()) =>
+  render(
+    <AppContext.Provider
+      value={{
+        generalData: mockGeneralData,
+        products: mockProducts,
+        setGeneralData: vi.fn(),
+        setProducts: vi.fn(),
+      }}
+    >
+      <Step3Preview onBack={onBack} onNext={onNext} />
+    </AppContext.Provider>
+  );
 
 describe('Step3Preview', () => {
-  const mockOnBack = vi.fn();
-  const mockOnNext = vi.fn();
-
-  const contextValue: AppContextProps = {
-    generalData: {
-      reason: 'Viaje de prueba',
-      personInCharge: 'Carlos',
-      departureDate: '2025-09-01',
-      returnDate: '2025-09-10',
-    },
-    setGeneralData: vi.fn(),
-    products: [
-      { description: 'Manzanas', producer: 'Juan', category: 'Frutas', code: 'A1', quantity: 10, price: 100 },
-      { description: 'Zanahorias', producer: 'Ana', category: 'Verduras', code: 'B2', quantity: 5, price: 50 },
-    ],
-    setProducts: vi.fn(),
-  };
-
-  beforeEach(() => {
-    render(
-      <AppContext.Provider value={contextValue}>
-        <Step3Preview onBack={mockOnBack} onNext={mockOnNext} />
-      </AppContext.Provider>
-    );
+  it('renderiza los datos generales en formato dd/mm/yyyy', () => {
+    renderWithContext();
+    expect(screen.getByTestId('salida')).toHaveTextContent('06/09/2025');
+    expect(screen.getByTestId('regreso')).toHaveTextContent('08/09/2025');
+    expect(screen.getByTestId('motivo')).toHaveTextContent('Prueba motivo');
+    expect(screen.getByTestId('responsable')).toHaveTextContent('Juan');
   });
 
-  it('renders title and general data', () => {
-    expect(screen.getByText('Previsualización')).toBeInTheDocument();
-    expect(screen.getByTestId('motivo')).toHaveTextContent('Viaje de prueba');
-    expect(screen.getByTestId('responsable')).toHaveTextContent('Carlos');
-    expect(screen.getByTestId('salida')).toHaveTextContent('2025-09-01');
-    expect(screen.getByTestId('regreso')).toHaveTextContent('2025-09-10');
+  it('renderiza los productos en la tabla', () => {
+    renderWithContext();
+    expect(screen.getByText('Prod A')).toBeInTheDocument();
+    expect(screen.getByText('Prod B')).toBeInTheDocument();
+    expect(screen.getByText('Desc A')).toBeInTheDocument();
+    expect(screen.getByText('Desc B')).toBeInTheDocument();
   });
 
-  it('renders products in table', () => {
-    expect(screen.getByText('Juan')).toBeInTheDocument();
-    expect(screen.getByText('Frutas')).toBeInTheDocument();
-    expect(screen.getByText('Manzanas')).toBeInTheDocument();
-    expect(screen.getByText('Ana')).toBeInTheDocument();
-    expect(screen.getByText('Zanahorias')).toBeInTheDocument();
-  });
+  it('ejecuta callbacks al presionar botones', () => {
+    const onBack = vi.fn();
+    const onNext = vi.fn();
+    renderWithContext(onBack, onNext);
 
-  it('calls onBack and onNext when buttons are clicked', () => {
     fireEvent.click(screen.getByTestId('btn-back'));
-    expect(mockOnBack).toHaveBeenCalled();
-
     fireEvent.click(screen.getByTestId('btn-next'));
-    expect(mockOnNext).toHaveBeenCalled();
+
+    expect(onBack).toHaveBeenCalled();
+    expect(onNext).toHaveBeenCalled();
   });
 
-  it('changes sorting order when selects are used', () => {
-    const sortSelect = screen.getByTestId('sort-type');
-    expect(sortSelect).toHaveValue('asc');
-    fireEvent.change(sortSelect, { target: { value: 'desc' } });
-    expect(sortSelect).toHaveValue('desc');
+  it('permite ordenar productos por productor ascendente/descendente', () => {
+    renderWithContext();
+
+    const orderSelect = screen.getByTestId('order-select-0');
+    fireEvent.change(orderSelect, { target: { value: 'producer' } });
+
+    const sortTypeSelect = screen.getByTestId('sort-type');
+    fireEvent.change(sortTypeSelect, { target: { value: 'desc' } });
+
+    // Verificamos que el primer producto sea el de mayor productor según orden descendente
+    const firstRow = screen.getAllByRole('row')[1]; // [0] es header
+    expect(firstRow).toHaveTextContent('Prod B');
   });
 });
