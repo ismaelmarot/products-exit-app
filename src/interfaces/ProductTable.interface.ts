@@ -2,6 +2,6 @@ import type { ProductProps } from './Product.interface';
 
 export interface ProductTableProps {
     products: ProductProps[];
-    onUpdate: (index: number, updated: ProductProps) => void;
+    onEdit: (index: number) => void;
     onDelete: (index: number) => void;
 }

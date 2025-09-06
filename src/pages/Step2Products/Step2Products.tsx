@@ -6,6 +6,7 @@ import ProductForm from '../../components/ProductForm/ProductForm/ProductForm';
 import { ContainerStyled } from './Step2Products.styled';
 import { AppContext } from '../../context/AppContext';
 import ConfirmModal from '../../components/ConfirmModal/ConfirmModal';
+import EditProductModal from '../../components/EditProductModal/EditProductModal';
 
 const Step2Products = ({ onNext, onBack }: Step2ProductsProps) => {
     const context = useContext(AppContext);
@@ -16,16 +17,15 @@ const Step2Products = ({ onNext, onBack }: Step2ProductsProps) => {
     const [showConfirm, setShowConfirm] = useState(false);
     const [deleteIndex, setDeleteIndex] = useState<number | null>(null);
 
+    const [showEditModal, setShowEditModal] = useState(false);
+    const [editIndex, setEditIndex] = useState<number | null>(null);
+
+    // ADD
     const addProduct = (product: ProductProps) => {
         setProducts([...products, product]);
     };
 
-    const updateProduct = (index: number, updated: ProductProps) => {
-        const newProducts = [...products];
-        newProducts[index] = updated;
-        setProducts(newProducts);
-    };
-
+    // DELETE
     const handleDeleteClick = (index: number) => {
         setDeleteIndex(index);
         setShowConfirm(true);
@@ -44,6 +44,27 @@ const Step2Products = ({ onNext, onBack }: Step2ProductsProps) => {
         setShowConfirm(false);
     };
 
+    // EDIT
+    const handleEditClick = (index: number) => {
+        setEditIndex(index);
+        setShowEditModal(true);
+    };
+
+    const handleSaveEdit = (updatedProduct: ProductProps) => {
+        if (editIndex !== null) {
+            const newProducts = [...products];
+            newProducts[editIndex] = updatedProduct;
+            setProducts(newProducts);
+            setShowEditModal(false);
+            setEditIndex(null);
+        }
+    };
+
+    const handleCancelEdit = () => {
+        setShowEditModal(false);
+        setEditIndex(null);
+    };
+
     return (
         <ContainerStyled>
             <h2>Productos</h2>
@@ -53,9 +74,10 @@ const Step2Products = ({ onNext, onBack }: Step2ProductsProps) => {
                 <button className='btn btn-secondary me-2' onClick={onBack}>Atrás</button>
                 <button className='btn btn-primary' onClick={onNext}>Siguiente</button>
             </div>
+
             <ProductTable
                 products={products}
-                onUpdate={updateProduct}
+                onEdit={handleEditClick}
                 onDelete={handleDeleteClick}
             />
 
@@ -65,6 +87,13 @@ const Step2Products = ({ onNext, onBack }: Step2ProductsProps) => {
                 message="¿Estás seguro de que quieres eliminar este producto?"
                 onConfirm={handleConfirmDelete}
                 onCancel={handleCancelDelete}
+            />
+
+            <EditProductModal
+                show={showEditModal}
+                product={editIndex !== null ? products[editIndex] : null}
+                onSave={handleSaveEdit}
+                onCancel={handleCancelEdit}
             />
         </ContainerStyled>
     );

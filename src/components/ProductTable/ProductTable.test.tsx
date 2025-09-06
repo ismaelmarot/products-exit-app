@@ -8,17 +8,17 @@ const mockProducts = [
 ];
 
 describe('ProductTable', () => {
-    let onUpdate: ReturnType<typeof vi.fn>;
+    let onEdit: ReturnType<typeof vi.fn>;
     let onDelete: ReturnType<typeof vi.fn>;
 
     beforeEach(() => {
-        onUpdate = vi.fn();
+        onEdit = vi.fn();
         onDelete = vi.fn();
 
         render(
             <ProductTable
                 products={mockProducts}
-                onUpdate={onUpdate}
+                onEdit={onEdit}
                 onDelete={onDelete}
             />
         );
@@ -33,10 +33,10 @@ describe('ProductTable', () => {
         });
     });
 
-    it('calls onUpdate when Editar button is clicked', () => {
+    it('calls onEdit when Editar button is clicked', () => {
         const editButtons = screen.getAllByText('Editar');
         fireEvent.click(editButtons[0]);
-        expect(onUpdate).toHaveBeenCalledWith(0, mockProducts[0]);
+        expect(onEdit).toHaveBeenCalledWith(0);
     });
 
     it('calls onDelete when Eliminar button is clicked', () => {

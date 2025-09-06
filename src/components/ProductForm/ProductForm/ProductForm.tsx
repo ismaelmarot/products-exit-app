@@ -1,11 +1,11 @@
-import { useState, type ChangeEvent } from 'react';
+import { useState, useEffect, type ChangeEvent } from 'react';
 import { Row, Col, Button } from 'react-bootstrap';
 import type { ProductProps } from '../../../interfaces/Product.interface';
 import type { ProductFormProps } from '../../../interfaces/ProductForm';
 import ProductInput from '../ProductInput/ProductInput';
 import { FormStyled } from './ProductForm.styled';
 
-const ProductForm = ({ onAdd }: ProductFormProps) => {
+const ProductForm = ({ onAdd, initialProduct }: ProductFormProps & { initialProduct?: ProductProps }) => {
   const [product, setProduct] = useState<ProductProps>({
     description: '',
     quantity: 1,
@@ -15,6 +15,12 @@ const ProductForm = ({ onAdd }: ProductFormProps) => {
     category: '',
     paymentMethod: '',
   });
+
+  useEffect(() => {
+    if (initialProduct) {
+      setProduct(initialProduct);
+    }
+  }, [initialProduct]);
 
   const handleChange = (e: ChangeEvent<any>) => {
     const { name, value } = e.target;
@@ -32,17 +38,20 @@ const ProductForm = ({ onAdd }: ProductFormProps) => {
   };
 
   const handleSubmit = (e: React.FormEvent) => {
-  e.preventDefault();
+    e.preventDefault();
     onAdd(product);
-    setProduct({
-      description: '',
-      quantity: 1,
-      code: '',
-      price: 0,
-      producer: '',
-      category: '',
-      paymentMethod: '',
-    });
+
+    if (!initialProduct) {
+      setProduct({
+        description: '',
+        quantity: 1,
+        code: '',
+        price: 0,
+        producer: '',
+        category: '',
+        paymentMethod: '',
+      });
+    }
   };
 
   return (
@@ -110,7 +119,7 @@ const ProductForm = ({ onAdd }: ProductFormProps) => {
       <Row>
         <Col md={12} className='d-flex justify-content-end mt-2'>
           <Button type='submit' variant='primary'>
-            Agregar
+            {initialProduct ? 'Guardar' : 'Agregar'}
           </Button>
         </Col>
       </Row>

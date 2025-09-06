@@ -1,7 +1,7 @@
 import type { ProductTableProps } from '../../interfaces/ProductTable.interface';
 import { TableStyled, TableWrapper } from './ProductTable.styled';
 
-const ProductTable = ({ products, onUpdate, onDelete }: ProductTableProps) => {
+const ProductTable = ({ products, onEdit, onDelete }: ProductTableProps) => {
     return (
         <TableWrapper>
             <TableStyled>
@@ -25,7 +25,7 @@ const ProductTable = ({ products, onUpdate, onDelete }: ProductTableProps) => {
                                 <div className='d-flex justify-content-center gap-2'>
                                     <button
                                         className='btn btn-sm btn-primary'
-                                        onClick={() => onUpdate(i, p)}
+                                        onClick={() => onEdit(i)}
                                     >
                                         Editar
                                     </button>
