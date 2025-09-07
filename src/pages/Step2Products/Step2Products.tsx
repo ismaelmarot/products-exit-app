@@ -69,18 +69,15 @@ const Step2Products = ({ onNext, onBack }: Step2ProductsProps) => {
         <ContainerStyled>
             <h2>Productos</h2>
             <ProductForm onAdd={addProduct} />
-
             <div className='d-flex justify-content-between mt-3'>
                 <button className='btn btn-secondary me-2' onClick={onBack}>Atrás</button>
                 <button className='btn btn-primary' onClick={onNext}>Siguiente</button>
             </div>
-
             <ProductTable
                 products={products}
                 onEdit={handleEditClick}
                 onDelete={handleDeleteClick}
             />
-
             <ConfirmModal
                 show={showConfirm}
                 title="Confirmar eliminación"
@@ -88,7 +85,6 @@ const Step2Products = ({ onNext, onBack }: Step2ProductsProps) => {
                 onConfirm={handleConfirmDelete}
                 onCancel={handleCancelDelete}
             />
-
             <EditProductModal
                 show={showEditModal}
                 product={editIndex !== null ? products[editIndex] : null}

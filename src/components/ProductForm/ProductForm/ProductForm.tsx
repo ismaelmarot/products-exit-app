@@ -10,7 +10,7 @@ const ProductForm = ({ onAdd, initialProduct }: ProductFormProps & { initialProd
     description: '',
     quantity: 1,
     code: '',
-    price: 0,
+    price: undefined,
     producer: '',
     category: '',
     paymentMethod: '',
