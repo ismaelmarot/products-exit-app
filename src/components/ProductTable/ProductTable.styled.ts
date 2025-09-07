@@ -11,3 +11,10 @@ export const TableWrapper = styled.div`
     width: 100%;
     overflow-x: auto;
 `;
+
+export const Td = styled.td`
+    min-width: 12rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+`;

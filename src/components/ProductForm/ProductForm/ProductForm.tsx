@@ -10,7 +10,7 @@ const ProductForm = ({ onAdd, initialProduct }: ProductFormProps & { initialProd
     description: '',
     quantity: 1,
     code: '',
-    price: undefined,
+    price: '',
     producer: '',
     category: '',
     paymentMethod: '',
@@ -18,7 +18,10 @@ const ProductForm = ({ onAdd, initialProduct }: ProductFormProps & { initialProd
 
   useEffect(() => {
     if (initialProduct) {
-      setProduct(initialProduct);
+      setProduct({
+        ...initialProduct,
+        price: initialProduct.price ?? '',
+      });
     }
   }, [initialProduct]);
 
@@ -28,7 +31,7 @@ const ProductForm = ({ onAdd, initialProduct }: ProductFormProps & { initialProd
     let newValue: string | number = value;
 
     if (name === 'quantity' || name === 'price') {
-      newValue = Number(value);
+      newValue = value === '' ? '' : Number(value);
     }
     if (name === 'code') {
       newValue = value.toUpperCase();
@@ -39,14 +42,18 @@ const ProductForm = ({ onAdd, initialProduct }: ProductFormProps & { initialProd
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onAdd(product);
+    onAdd({
+      ...product,
+      quantity: Number(product.quantity),
+      price: product.price === '' ? 0 : Number(product.price),
+    });
 
     if (!initialProduct) {
       setProduct({
         description: '',
         quantity: 1,
         code: '',
-        price: 0,
+        price: '',
         producer: '',
         category: '',
         paymentMethod: '',

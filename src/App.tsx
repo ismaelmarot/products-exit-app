@@ -24,26 +24,26 @@ function App() {
 
   return (
     <AppProvider>
-      <div className="d-flex flex-column min-vh-100">
-        <Container className="flex-fill mt-4">
-          <h1 className="mb-4 text-center">Products Exit App</h1>
+      <div className='d-flex flex-column min-vh-100'>
+        <Container className='flex-fill mt-4'>
+          <h1 className='mb-4 text-center'>Products Exit App</h1>
           <Tabs
-            id="salida-productos-tabs"
+            id='salida-productos-tabs'
             activeKey={key}
             onSelect={(k) => k && setKey(k)}
             className="mb-3"
             justify
           >
-            <Tab eventKey="step1" title="1. Datos Generales">
+            <Tab eventKey='step1' title="1. Datos Generales">
               <Step1GeneralData onNext={() => setKey('step2')} />
             </Tab>
-            <Tab eventKey="step2" title="2. Productos">
+            <Tab eventKey='step2' title="2. Productos">
               <Step2Products onNext={handleNext} onBack={handleBack} />
             </Tab>
-            <Tab eventKey="step3" title="3. Previsualización">
+            <Tab eventKey='step3' title="3. Previsualización">
               <Step3Preview onBack={handleBack} onNext={handleNext} />
             </Tab>
-            <Tab eventKey="step4" title="4. Final / PDF">
+            <Tab eventKey='step4' title="4. Final / PDF">
               <Step4PDF />
             </Tab>
           </Tabs>
