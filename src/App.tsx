@@ -26,7 +26,7 @@ function App() {
     <AppProvider>
       <div className='d-flex flex-column min-vh-100'>
         <Container className='flex-fill mt-4'>
-          <h1 className='mb-4 text-center'>Products Exit App</h1>
+          <h1 className='mb-4 text-lefth'>Products Exit App</h1>
           <Tabs
             id='salida-productos-tabs'
             activeKey={key}
