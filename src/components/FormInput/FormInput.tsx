@@ -8,7 +8,7 @@ const FormInput = ({
     onChange,
     type = 'text',
     required = false,
-    placeholder = "",
+    placeholder = '',
     }: FormInputProps) => {
     return (
         <Form.Group controlId={name} className='mb-3'>

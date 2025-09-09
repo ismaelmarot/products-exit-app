@@ -17,7 +17,7 @@ const ProductForm = ({
     description: '',
     quantity: 1,
     code: '',
-    price: 0,
+    price: '',
     producer: persistentProducer || '',
     category: persistentCategory || '',
     paymentMethod: '',

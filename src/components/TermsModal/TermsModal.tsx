@@ -2,20 +2,20 @@ import React from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import { getCurrentYear } from '../../helpers/getCurrentYear/getCurrentYear';
 import type { TermsModalProps } from '../../interfaces/TermsModal.interface';
+import { LinkStyled, StyledModalBody } from './TermsModal.styled';
 
 const TermsModal: React.FC<TermsModalProps> = ({ show, onClose }) => {
   return (
     <Modal 
       show={show} 
       onHide={onClose} 
-      aria-labelledby="terms-modal-title"
+      aria-labelledby='terms-modal-title'
       centered
     >
       <Modal.Header closeButton>
-        <Modal.Title id="terms-modal-title">Términos de uso</Modal.Title>
+        <Modal.Title id='terms-modal-title'>Términos de uso</Modal.Title>
       </Modal.Header>
-
-      <Modal.Body className="text-justify" style={{ fontSize: '.7rem' }}>
+      <StyledModalBody>
         <p>
           Bienvenido a <strong>Products Entry App</strong>.
         </p>
@@ -48,15 +48,15 @@ const TermsModal: React.FC<TermsModalProps> = ({ show, onClose }) => {
         </p>
         <p>
           Contacto: Si tiene alguna duda sobre estos términos, consultas o inquietudes; escriba a{' '}
-          <a href="mailto:ismaelmarot@hotmail.com" style={{ textDecoration: 'none' }}>
+          <LinkStyled href='mailto:ismaelmarot@hotmail.com'>
             ismaelmarot@hotmail.com
-          </a>
+          </LinkStyled>
         </p>
         <p>Última actualización: {getCurrentYear()}</p>
-      </Modal.Body>
+      </StyledModalBody>
 
       <Modal.Footer>
-        <Button variant="secondary" onClick={onClose}>
+        <Button variant='secondary' onClick={onClose}>
           Cerrar
         </Button>
       </Modal.Footer>

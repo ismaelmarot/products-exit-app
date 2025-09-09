@@ -7,7 +7,7 @@ export const DivStyled = styled.div`
 
 export const MdClearStyled = styled(MdClear)`
     position: absolute;
-    right: 1.2rem;
+    right: .3rem;
     top: 2.5rem;
     font-size: 1.2rem;
     color: rgb(108,117,125);
