@@ -72,6 +72,7 @@ const Step2Products = ({ onNext, onBack }: Step2ProductsProps) => {
             <h2>Productos</h2>
             <ProductForm
                 onAdd={addProduct}
+                products={products}
                 persistentProducer={persistentProducer}
                 setPersistentProducer={setPersistentProducer}
                 persistentCategory={persistentCategory}
@@ -90,12 +91,15 @@ const Step2Products = ({ onNext, onBack }: Step2ProductsProps) => {
                 show={showConfirm}
                 title="Eliminar"
                 message="¿Está seguro de que quiere eliminar este producto?"
-                onConfirm={handleConfirmDelete}
-                onCancel={handleCancelDelete}
+                onButton1={handleConfirmDelete}
+                onButton2={handleCancelDelete}
+                textButton1="Eliminar"
+                textButton2="Cancelar"
             />
             <EditProductModal
                 show={showEditModal}
                 product={editIndex !== null ? products[editIndex] : null}
+                products={products}
                 onSave={handleSaveEdit}
                 onCancel={handleCancelEdit}
             />

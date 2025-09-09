@@ -3,7 +3,7 @@ import { Modal, Button } from 'react-bootstrap';
 import type { EditProductModalProps } from '../../interfaces/EditProductModal.interface';
 import ProductForm from '../ProductForm/ProductForm/ProductForm';
 
-const EditProductModal: FC<EditProductModalProps> = ({ show, product, onSave, onCancel }) => {
+const EditProductModal: FC<EditProductModalProps> = ({ show, product, products, onSave, onCancel }) => {
     if (!product) return null;
 
     return (
@@ -15,6 +15,7 @@ const EditProductModal: FC<EditProductModalProps> = ({ show, product, onSave, on
                 <ProductForm
                     onAdd={onSave}
                     initialProduct={product}
+                    products={products}
                 />
             </Modal.Body>
             <Modal.Footer>
