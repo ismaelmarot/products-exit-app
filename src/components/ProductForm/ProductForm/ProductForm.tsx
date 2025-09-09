@@ -1,18 +1,26 @@
 import { useState, useEffect, type ChangeEvent } from 'react';
 import { Row, Col, Button } from 'react-bootstrap';
 import type { ProductProps } from '../../../interfaces/Product.interface';
-import type { ProductFormProps } from '../../../interfaces/ProductForm';
 import ProductInput from '../ProductInput/ProductInput';
 import { FormStyled } from './ProductForm.styled';
+import type { ProductFormProps } from '../../../interfaces/ProductForm';
+import { MdClear } from 'react-icons/md';
 
-const ProductForm = ({ onAdd, initialProduct }: ProductFormProps & { initialProduct?: ProductProps }) => {
+const ProductForm = ({
+  onAdd,
+  initialProduct,
+  persistentProducer,
+  setPersistentProducer,
+  persistentCategory,
+  setPersistentCategory,
+}: ProductFormProps) => {
   const [product, setProduct] = useState<ProductProps>({
     description: '',
     quantity: 1,
     code: '',
     price: '',
-    producer: '',
-    category: '',
+    producer: persistentProducer || '',
+    category: persistentCategory || '',
     paymentMethod: '',
   });
 
@@ -22,8 +30,14 @@ const ProductForm = ({ onAdd, initialProduct }: ProductFormProps & { initialProd
         ...initialProduct,
         price: initialProduct.price ?? '',
       });
+    } else {
+      setProduct({
+        ...product,
+        producer: persistentProducer || '',
+        category: persistentCategory || '',
+      });
     }
-  }, [initialProduct]);
+  }, [initialProduct, persistentProducer, persistentCategory]);
 
   const handleChange = (e: ChangeEvent<any>) => {
     const { name, value } = e.target;
@@ -38,6 +52,9 @@ const ProductForm = ({ onAdd, initialProduct }: ProductFormProps & { initialProd
     }
 
     setProduct({ ...product, [name]: newValue });
+
+    if (name === 'producer' && setPersistentProducer) setPersistentProducer(value);
+    if (name === 'category' && setPersistentCategory) setPersistentCategory(value);
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -50,21 +67,29 @@ const ProductForm = ({ onAdd, initialProduct }: ProductFormProps & { initialProd
 
     if (!initialProduct) {
       setProduct({
+        ...product,
         description: '',
         quantity: 1,
         code: '',
         price: '',
-        producer: '',
-        category: '',
-        paymentMethod: '',
       });
     }
+  };
+
+  const handleClearProducer = () => {
+    if (setPersistentProducer) setPersistentProducer('');
+    setProduct({ ...product, producer: '' });
+  };
+
+  const handleClearCategory = () => {
+    if (setPersistentCategory) setPersistentCategory('');
+    setProduct({ ...product, category: '' });
   };
 
   return (
     <FormStyled onSubmit={handleSubmit} className='mb-3'>
       <Row className='mb-2'>
-        <Col md={6}>
+        <Col md={6} className='position-relative'>
           <ProductInput
             label="Productor*"
             name='producer'
@@ -72,14 +97,40 @@ const ProductForm = ({ onAdd, initialProduct }: ProductFormProps & { initialProd
             onChange={handleChange}
             required
           />
+          {product.producer && (
+            <MdClear
+              style={{
+                position: 'absolute',
+                right: '1.2rem',
+                top: '2.5rem',
+                cursor: 'pointer',
+                fontSize: '1.2rem',
+                color: 'rgb(108,117,125)',
+              }}
+              onClick={handleClearProducer}
+            />
+          )}
         </Col>
-        <Col md={6}>
+        <Col md={6} className='position-relative'>
           <ProductInput
             label="Rubro"
             name='category'
             value={product.category}
             onChange={handleChange}
           />
+          {product.category && (
+            <MdClear
+              style={{
+                position: 'absolute',
+                right: '1.2rem',
+                top: '2.5rem',
+                cursor: 'pointer',
+                fontSize: '1.2rem',
+                color: 'rgb(108,117,125)',
+              }}
+              onClick={handleClearCategory}
+            />
+          )}
         </Col>
         <Col md={12}>
           <ProductInput

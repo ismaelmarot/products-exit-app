@@ -20,12 +20,15 @@ const Step2Products = ({ onNext, onBack }: Step2ProductsProps) => {
     const [showEditModal, setShowEditModal] = useState(false);
     const [editIndex, setEditIndex] = useState<number | null>(null);
 
-    // ADD
+    const [persistentProducer, setPersistentProducer] = useState('');
+    const [persistentCategory, setPersistentCategory] = useState('');
+
     const addProduct = (product: ProductProps) => {
         setProducts([...products, product]);
+        setPersistentProducer(product.producer || '');
+        setPersistentCategory(product.category || '');
     };
 
-    // DELETE
     const handleDeleteClick = (index: number) => {
         setDeleteIndex(index);
         setShowConfirm(true);
@@ -44,7 +47,6 @@ const Step2Products = ({ onNext, onBack }: Step2ProductsProps) => {
         setShowConfirm(false);
     };
 
-    // EDIT
     const handleEditClick = (index: number) => {
         setEditIndex(index);
         setShowEditModal(true);
@@ -68,7 +70,13 @@ const Step2Products = ({ onNext, onBack }: Step2ProductsProps) => {
     return (
         <ContainerStyled>
             <h2>Productos</h2>
-            <ProductForm onAdd={addProduct} />
+            <ProductForm
+                onAdd={addProduct}
+                persistentProducer={persistentProducer}
+                setPersistentProducer={setPersistentProducer}
+                persistentCategory={persistentCategory}
+                setPersistentCategory={setPersistentCategory}
+            />
             <div className='d-flex justify-content-between mt-3'>
                 <button className='btn btn-secondary me-2' onClick={onBack}>Atrás</button>
                 <button className='btn btn-primary' onClick={onNext}>Siguiente</button>
@@ -80,8 +88,8 @@ const Step2Products = ({ onNext, onBack }: Step2ProductsProps) => {
             />
             <ConfirmModal
                 show={showConfirm}
-                title="Confirmar eliminación"
-                message="¿Estás seguro de que quieres eliminar este producto?"
+                title="Eliminar"
+                message="¿Está seguro de que quiere eliminar este producto?"
                 onConfirm={handleConfirmDelete}
                 onCancel={handleCancelDelete}
             />
