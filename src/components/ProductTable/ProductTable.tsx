@@ -1,5 +1,6 @@
 import type { ProductTableProps } from '../../interfaces/ProductTable.interface';
 import formatAmount from '../../helpers/formatAmount/formatAmount';
+import { Th } from './ProductTable.styled';
 
 const ProductTable = ({ products, onEdit, onDelete }: ProductTableProps) => {
   return (
@@ -7,11 +8,11 @@ const ProductTable = ({ products, onEdit, onDelete }: ProductTableProps) => {
       <table className='table table-striped table-bordered'>
         <thead className='table-dark'>
           <tr>
-            <th className='text-start' style={{ minWidth: '12rem' }}>Descripción</th>
-            <th className='text-end' style={{ minWidth: '6rem' }}>Cant</th>
-            <th className='text-end' style={{ minWidth: '8rem' }}>Código</th>
-            <th className='text-end' style={{ minWidth: '8rem' }}>$ Venta</th>
-            <th className='text-center' style={{ minWidth: '12rem' }}>Acciones</th>
+            <Th align='start' minWidth='2rem'>Descripción</Th>
+            <Th align='end' minWidth='6rem'>Cant</Th>
+            <Th align='end' minWidth='8rem'>Código</Th>
+            <Th align='end' minWidth='8rem'>$ Venta</Th>
+            <Th align='center' minWidth='12rem'>Acciones</Th>
           </tr>
         </thead>
         <tbody>

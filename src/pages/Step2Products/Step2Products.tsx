@@ -24,7 +24,7 @@ const Step2Products = ({ onNext, onBack }: Step2ProductsProps) => {
     const [persistentCategory, setPersistentCategory] = useState('');
 
     const addProduct = (product: ProductProps) => {
-        setProducts([...products, product]);
+        setProducts([product, ...products]);
         setPersistentProducer(product.producer || '');
         setPersistentCategory(product.category || '');
     };

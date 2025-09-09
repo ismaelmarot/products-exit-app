@@ -12,9 +12,8 @@ export const TableWrapper = styled.div`
     overflow-x: auto;
 `;
 
-export const Td = styled.td`
-    min-width: 12rem;
+export const Th = styled.td<{ align?: 'start' | 'center' | 'end' ; minWidth?: string}>`
+    text-align: ${({ align }) => align || 'start'};
+    min-width: ${({ minWidth }) => minWidth || 'auto'};
     white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
 `;
