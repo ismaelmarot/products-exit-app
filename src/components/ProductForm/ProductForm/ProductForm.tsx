@@ -1,10 +1,9 @@
 import { useState, useEffect, type ChangeEvent } from 'react';
 import { Row, Col, Button } from 'react-bootstrap';
 import type { ProductProps } from '../../../interfaces/Product.interface';
-import ProductInput from '../ProductInput/ProductInput';
-import { FormStyled } from './ProductForm.styled';
 import type { ProductFormProps } from '../../../interfaces/ProductForm';
-import { MdClear } from 'react-icons/md';
+import { FormStyled } from './ProductForm.styled';
+import ClearableInput from '../../ClearableInput/ClearableInput';
 
 const ProductForm = ({
   onAdd,
@@ -18,7 +17,7 @@ const ProductForm = ({
     description: '',
     quantity: 1,
     code: '',
-    price: '',
+    price: 0,
     producer: persistentProducer || '',
     category: persistentCategory || '',
     paymentMethod: '',
@@ -28,30 +27,31 @@ const ProductForm = ({
     if (initialProduct) {
       setProduct({
         ...initialProduct,
-        price: initialProduct.price ?? '',
+        price: initialProduct.price ?? 0,
+        quantity: initialProduct.quantity ?? 1,
       });
     } else {
-      setProduct({
-        ...product,
+      setProduct((prev) => ({
+        ...prev,
         producer: persistentProducer || '',
         category: persistentCategory || '',
-      });
+      }));
     }
   }, [initialProduct, persistentProducer, persistentCategory]);
 
-  const handleChange = (e: ChangeEvent<any>) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
     let newValue: string | number = value;
 
     if (name === 'quantity' || name === 'price') {
-      newValue = value === '' ? '' : Number(value);
+      newValue = value === '' ? 0 : Number(value);
     }
     if (name === 'code') {
       newValue = value.toUpperCase();
     }
 
-    setProduct({ ...product, [name]: newValue });
+    setProduct((prev) => ({ ...prev, [name]: newValue }));
 
     if (name === 'producer' && setPersistentProducer) setPersistentProducer(value);
     if (name === 'category' && setPersistentCategory) setPersistentCategory(value);
@@ -62,111 +62,86 @@ const ProductForm = ({
     onAdd({
       ...product,
       quantity: Number(product.quantity),
-      price: product.price === '' ? 0 : Number(product.price),
+      price: Number(product.price),
     });
 
     if (!initialProduct) {
-      setProduct({
-        ...product,
+      setProduct((prev) => ({
+        ...prev,
         description: '',
         quantity: 1,
         code: '',
-        price: '',
-      });
+        price: 0,
+      }));
     }
   };
 
   const handleClearProducer = () => {
     if (setPersistentProducer) setPersistentProducer('');
-    setProduct({ ...product, producer: '' });
+    setProduct((prev) => ({ ...prev, producer: '' }));
   };
 
   const handleClearCategory = () => {
     if (setPersistentCategory) setPersistentCategory('');
-    setProduct({ ...product, category: '' });
+    setProduct((prev) => ({ ...prev, category: '' }));
   };
 
   return (
     <FormStyled onSubmit={handleSubmit} className='mb-3'>
       <Row className='mb-2'>
-        <Col md={6} className='position-relative'>
-          <ProductInput
+        <Col md={6}>
+          <ClearableInput
             label="Productor*"
             name='producer'
-            value={product.producer}
+            value={product.producer ?? ''}
             onChange={handleChange}
+            onClear={handleClearProducer}
             required
           />
-          {product.producer && (
-            <MdClear
-              style={{
-                position: 'absolute',
-                right: '1.2rem',
-                top: '2.5rem',
-                cursor: 'pointer',
-                fontSize: '1.2rem',
-                color: 'rgb(108,117,125)',
-              }}
-              onClick={handleClearProducer}
-            />
-          )}
         </Col>
-        <Col md={6} className='position-relative'>
-          <ProductInput
+        <Col md={6}>
+          <ClearableInput
             label="Rubro"
             name='category'
-            value={product.category}
+            value={product.category ?? ''}
             onChange={handleChange}
+            onClear={handleClearCategory}
           />
-          {product.category && (
-            <MdClear
-              style={{
-                position: 'absolute',
-                right: '1.2rem',
-                top: '2.5rem',
-                cursor: 'pointer',
-                fontSize: '1.2rem',
-                color: 'rgb(108,117,125)',
-              }}
-              onClick={handleClearCategory}
-            />
-          )}
         </Col>
         <Col md={12}>
-          <ProductInput
+          <ClearableInput
             label="Descripción*"
             name='description'
-            value={product.description}
+            value={product.description ?? ''}
             onChange={handleChange}
             required
           />
         </Col>
         <Col md={4}>
-          <ProductInput
+          <ClearableInput
             label="Cantidad"
             name='quantity'
             type='number'
-            value={product.quantity}
+            value={product.quantity ?? 1}
             onChange={handleChange}
             min={1}
             required
           />
         </Col>
         <Col md={4}>
-          <ProductInput
+          <ClearableInput
             label="Código"
             name='code'
-            value={product.code}
+            value={product.code ?? ''}
             onChange={handleChange}
-            required
           />
         </Col>
         <Col md={4}>
-          <ProductInput
+          <ClearableInput
             label="$ Venta"
             name='price'
             type='number'
-            value={product.price}
+            value={product.price ?? 0}
             onChange={handleChange}
             min={0}
             step={0.01}
