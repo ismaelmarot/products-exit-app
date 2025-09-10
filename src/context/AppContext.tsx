@@ -14,9 +14,28 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
     });
 
     const [products, setProducts] = useState<ProductProps[]>([]);
+    const [order1, setOrder1] = useState('');
+    const [order2, setOrder2] = useState('');
+    const [order3, setOrder3] = useState('');
+    const [sortType, setSortType] = useState<'asc' | 'desc'>('asc');
 
     return (
-        <AppContext.Provider value={{ generalData, setGeneralData, products, setProducts }}>
+        <AppContext.Provider
+            value={{
+                generalData,
+                setGeneralData,
+                products,
+                setProducts,
+                order1,
+                setOrder1,
+                order2,
+                setOrder2,
+                order3,
+                setOrder3,
+                sortType,
+                setSortType,
+
+            }}>
         {children}
         </AppContext.Provider>
     );

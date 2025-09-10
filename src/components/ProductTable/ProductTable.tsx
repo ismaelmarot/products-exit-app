@@ -8,11 +8,11 @@ const ProductTable = ({ products, onEdit, onDelete }: ProductTableProps) => {
       <table className='table table-striped table-bordered'>
         <thead className='table-dark'>
           <tr>
-            <Th align='start' minWidth='2rem'>Descripción</Th>
-            <Th align='end' minWidth='6rem'>Cant</Th>
-            <Th align='end' minWidth='8rem'>Código</Th>
-            <Th align='end' minWidth='8rem'>$ Venta</Th>
-            <Th align='center' minWidth='12rem'>Acciones</Th>
+            <Th $align='start' $minWidth='2rem'>Descripción</Th>
+            <Th $align='end' $minWidth='6rem'>Cant</Th>
+            <Th $align='end' $minWidth='8rem'>Código</Th>
+            <Th $align='end' $minWidth='8rem'>$ Venta</Th>
+            <Th $align='center' $minWidth='12rem'>Acciones</Th>
           </tr>
         </thead>
         <tbody>

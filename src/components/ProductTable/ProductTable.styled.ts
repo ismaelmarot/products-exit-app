@@ -12,8 +12,8 @@ export const TableWrapper = styled.div`
     overflow-x: auto;
 `;
 
-export const Th = styled.td<{ align?: 'start' | 'center' | 'end' ; minWidth?: string}>`
-    text-align: ${({ align }) => align || 'start'};
-    min-width: ${({ minWidth }) => minWidth || 'auto'};
+export const Th = styled.td<{ $align?: 'start' | 'center' | 'end'; $minWidth?: string }>`
+    text-align: ${({ $align }) => $align || 'start'};
+    min-width: ${({ $minWidth }) => $minWidth || 'auto'};
     white-space: nowrap;
 `;
