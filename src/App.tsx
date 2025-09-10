@@ -33,7 +33,7 @@ function App() {
               id='salida-productos-tabs'
               activeKey={key}
               onSelect={(k) => k && setKey(k)}
-              className="mb-3"
+              className='mb-3'
               justify
               mountOnEnter
               unmountOnExit
