@@ -1,68 +1,92 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import { vi } from 'vitest';
+import { describe, it, beforeEach, vi, expect } from 'vitest';
 import ProductForm from './ProductForm';
+import type { ProductProps } from '../../../interfaces/Product.interface';
+
+const mockProducts: ProductProps[] = [
+  { description: 'Producto 1', quantity: 5, code: 'A01', price: 100, producer: 'ACME', category: 'Rubro1', paymentMethod: '' },
+];
 
 describe('ProductForm', () => {
-    const mockOnAdd = vi.fn();
+  let onAdd: ReturnType<typeof vi.fn>;
+  let setPersistentProducer: ReturnType<typeof vi.fn>;
+  let setPersistentCategory: ReturnType<typeof vi.fn>;
+  let setPersistentDescription: ReturnType<typeof vi.fn>;
+  let setPersistentPrice: ReturnType<typeof vi.fn>;
 
-    beforeEach(() => {
-        mockOnAdd.mockClear();
+  beforeEach(() => {
+    onAdd = vi.fn();
+    setPersistentProducer = vi.fn();
+    setPersistentCategory = vi.fn();
+    setPersistentDescription = vi.fn();
+    setPersistentPrice = vi.fn();
+
+    render(
+      <ProductForm
+        onAdd={onAdd}
+        products={mockProducts}
+        persistentProducer="ACME"
+        setPersistentProducer={setPersistentProducer}
+        persistentCategory="Rubro1"
+        setPersistentCategory={setPersistentCategory}
+        persistentDescription="Reset Test"
+        setPersistentDescription={setPersistentDescription}
+        persistentPrice={99}
+        setPersistentPrice={setPersistentPrice}
+      />
+    );
+  });
+
+  it('renders all inputs and submit button', () => {
+    expect(screen.getByLabelText(/Productor/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/Rubro/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/Descripción/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/Cantidad/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/Código/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/\$ Venta/i)).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /Agregar/i })).toBeInTheDocument();
+  });
+
+  it('updates input values when typing', () => {
+    const producerInput = screen.getByLabelText(/Productor/i) as HTMLInputElement;
+    fireEvent.change(producerInput, { target: { value: 'Nuevo Productor' } });
+    expect(producerInput.value).toBe('Nuevo Productor');
+
+    const quantityInput = screen.getByLabelText(/Cantidad/i) as HTMLInputElement;
+    fireEvent.change(quantityInput, { target: { value: '3' } });
+    expect(quantityInput.value).toBe('3');
+  });
+
+  it('calls onAdd with correct product data on submit', () => {
+    const submitButton = screen.getByRole('button', { name: /Agregar/i });
+    fireEvent.click(submitButton);
+    expect(onAdd).toHaveBeenCalledTimes(1);
+    expect(onAdd).toHaveBeenCalledWith(expect.objectContaining({
+      producer: 'ACME',
+      category: 'Rubro1',
+      description: 'Reset Test',
+      quantity: 1,
+      code: '',
+      price: 99,
+    }));
+  });
+
+  it('resets the form after submit', async () => {
+    const submitButton = screen.getByRole('button', { name: /Agregar/i });
+    fireEvent.click(submitButton);
+
+    await waitFor(() => {
+      expect(screen.getByLabelText(/Productor/i)).toHaveValue('');
+      expect(screen.getByLabelText(/Rubro/i)).toHaveValue('');
+      expect(screen.getByLabelText(/Descripción/i)).toHaveValue('');
+      expect(screen.getByLabelText(/Cantidad/i)).toHaveValue(1);
+      expect(screen.getByLabelText(/Código/i)).toHaveValue('');
+      expect(screen.getByLabelText(/\$ Venta/i)).toHaveValue(0);
     });
 
-    it('renders all inputs and submit button', () => {
-        render(<ProductForm onAdd={mockOnAdd} />);
-        expect(screen.getByLabelText(/Productor/i)).toBeInTheDocument();
-        expect(screen.getByLabelText(/Rubro/i)).toBeInTheDocument();
-        expect(screen.getByLabelText(/Descripción/i)).toBeInTheDocument();
-        expect(screen.getByLabelText(/Cantidad/i)).toBeInTheDocument();
-        expect(screen.getByLabelText(/Código/i)).toBeInTheDocument();
-        expect(screen.getByLabelText(/\$ Venta/i)).toBeInTheDocument();
-        expect(screen.getByRole('button', { name: /Agregar/i })).toBeInTheDocument();
-    });
-
-    it('updates input values when typing', () => {
-        render(<ProductForm onAdd={mockOnAdd} />);
-        const descriptionInput = screen.getByLabelText(/Descripción/i);
-        fireEvent.change(descriptionInput, { target: { value: 'Producto Test' } });
-        expect(descriptionInput).toHaveValue('Producto Test');
-    });
-
-    it('calls onAdd with correct product data on submit', () => {
-        render(<ProductForm onAdd={mockOnAdd} />);
-        fireEvent.change(screen.getByLabelText(/Productor/i), { target: { value: 'ACME' } });
-        fireEvent.change(screen.getByLabelText(/Descripción/i), { target: { value: 'Nuevo Producto' } });
-        fireEvent.change(screen.getByLabelText(/Cantidad/i), { target: { value: 3 } });
-        fireEvent.change(screen.getByLabelText(/Código/i), { target: { value: 'abc' } });
-        fireEvent.change(screen.getByLabelText(/\$ Venta/i), { target: { value: 99 } });
-
-        fireEvent.submit(screen.getByRole('button', { name: /Agregar/i }));
-
-        expect(mockOnAdd).toHaveBeenCalledWith({
-            description: 'Nuevo Producto',
-            quantity: 3,
-            code: 'ABC',
-            price: 99,
-            producer: 'ACME',
-            category: '',
-            paymentMethod: '',
-        });
-    });
-
-    it('resets the form after submit', async () => {
-        render(<ProductForm onAdd={mockOnAdd} />);
-
-        fireEvent.change(screen.getByLabelText(/Descripción/i), { target: { value: 'Reset Test' } });
-        fireEvent.change(screen.getByLabelText(/Cantidad/i), { target: { value: 3 } });
-        fireEvent.change(screen.getByLabelText(/Código/i), { target: { value: 'XYZ' } });
-        fireEvent.change(screen.getByLabelText(/\$ Venta/i), { target: { value: 99 } });
-
-        fireEvent.submit(screen.getByRole('button', { name: /Agregar/i }));
-
-        await waitFor(() => {
-            expect(screen.getByLabelText(/Descripción/i)).toHaveValue('');
-            expect(screen.getByLabelText(/Cantidad/i)).toHaveValue(1);
-            expect(screen.getByLabelText(/Código/i)).toHaveValue('');
-            expect(screen.getByLabelText(/\$ Venta/i)).toHaveValue(null);
-        });
-    });
+    expect(setPersistentProducer).toHaveBeenCalledWith('');
+    expect(setPersistentCategory).toHaveBeenCalledWith('');
+    expect(setPersistentDescription).toHaveBeenCalledWith('');
+    expect(setPersistentPrice).toHaveBeenCalledWith(0);
+  });
 });

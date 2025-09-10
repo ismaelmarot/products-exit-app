@@ -2,10 +2,24 @@ import { Form } from 'react-bootstrap';
 import { DivStyled, MdClearStyled } from './ClearableInput.styled';
 import type { ClearableInputProps } from '../../interfaces/ClearableInput.interface';
 
-const ClearableInput = ({ label, name, value, onChange, onClear, type = 'text', required, min, step }: ClearableInputProps) => (
-    <DivStyled>
-        <Form.Label>{label}</Form.Label>
+const ClearableInput = ({
+    label,
+    name,
+    value,
+    onChange,
+    onClear,
+    type = 'text',
+    required,
+    min,
+    step,
+}: ClearableInputProps) => {
+    const id = `input-${name}`;
+
+    return (
+        <DivStyled>
+        <Form.Label htmlFor={id}>{label}</Form.Label>
         <Form.Control
+            id={id}
             name={name}
             value={value}
             onChange={onChange}
@@ -17,7 +31,8 @@ const ClearableInput = ({ label, name, value, onChange, onClear, type = 'text', 
         {value !== undefined && value !== '' && onClear && (
             <MdClearStyled onClick={onClear} />
         )}
-  </DivStyled>
-);
+        </DivStyled>
+    );
+};
 
 export default ClearableInput;

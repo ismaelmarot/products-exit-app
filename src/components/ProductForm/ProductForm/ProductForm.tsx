@@ -100,11 +100,20 @@ const ProductForm = ({
     });
 
     if (!initialProduct) {
-      setProduct((prev) => ({
-        ...prev,
+      setProduct({
+        description: '',
         quantity: 1,
         code: '',
-      }));
+        price: 0,
+        producer: '',
+        category: '',
+        paymentMethod: '',
+      });
+
+      if (setPersistentProducer) setPersistentProducer('');
+      if (setPersistentCategory) setPersistentCategory('');
+      if (setPersistentDescription) setPersistentDescription('');
+      if (setPersistentPrice) setPersistentPrice(0);
     }
 
     setShowConfirm(false);

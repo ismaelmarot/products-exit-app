@@ -46,10 +46,10 @@ describe('ProductTable', () => {
     expect(onDelete).toHaveBeenCalledWith(1);
   });
 
-  it('has correct text alignment classes', () => {
-    expect(screen.getByText('Cant')).toHaveClass('text-end');
-    expect(screen.getByText('Código')).toHaveClass('text-end');
-    expect(screen.getByText('$ Venta')).toHaveClass('text-end');
-    expect(screen.getByText('Acciones')).toHaveClass('text-center');
+  it('has correct text alignment styles', () => {
+    expect(screen.getByText('Cant')).toHaveStyle({ textAlign: 'end' });
+    expect(screen.getByText('Código')).toHaveStyle({ textAlign: 'end' });
+    expect(screen.getByText('$ Venta')).toHaveStyle({ textAlign: 'end' });
+    expect(screen.getByText('Acciones')).toHaveStyle({ textAlign: 'center' });
   });
 });

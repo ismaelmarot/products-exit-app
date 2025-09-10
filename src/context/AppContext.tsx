@@ -1,7 +1,7 @@
 import { createContext, useState, type ReactNode } from 'react';
 import type { Step1GeneralDataProps } from '../interfaces/Step1GeneralData.interface';
 import type { ProductProps } from '../interfaces/Product.interface';
-import type { AppContextProps } from '../interfaces/AppContextProps.interface';
+import type { AppContextProps } from '../interfaces/AppContext.interface';
 
 export const AppContext = createContext<AppContextProps | undefined>(undefined);
 
