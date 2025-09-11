@@ -1,14 +1,14 @@
 import { render, screen } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
 import GeneralDataInfo from './GeneralDataInfo';
-import type { GeneraDataPros } from '../../interfaces/GeneralData.interface';
+import type { GeneralDataPros } from '../../interfaces/GeneralData.interface';
 
 vi.mock('../../helpers/formatDate/formatDate', () => ({
     formatDate: (date: string | undefined) => (date ? `formatted-${date}` : '—'),
 }));
 
 describe('GeneralDataInfo', () => {
-    const mockData: GeneraDataPros['generalData'] = {
+    const mockData: GeneralDataPros['generalData'] = {
         reason: 'Viaje de negocios',
         departureDate: '2025-09-10',
         personInCharge: 'Juan Pérez',

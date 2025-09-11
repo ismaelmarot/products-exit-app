@@ -1,8 +1,8 @@
 import React from 'react';
-import type { GeneraDataPros } from '../../interfaces/GeneralData.interface';
+import type { GeneralDataPros } from '../../interfaces/GeneralData.interface';
 import { formatDate } from '../../helpers/formatDate/formatDate';
 
-const GeneralDataInfo: React.FC<GeneraDataPros> = ({
+const GeneralDataInfo: React.FC<GeneralDataPros> = ({
     generalData: { reason, departureDate, personInCharge, returnDate }
  }) => {
     return (
