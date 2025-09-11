@@ -2,6 +2,7 @@
   "name": "product-exit-app",
   "private": true,
   "version": "0.0.0",
+  "homepage": "https://ismaelmarot.github.io/products-exit-app",
   "type": "module",
   "scripts": {
     "dev": "vite",
