@@ -1,7 +1,7 @@
 import { Row, Col } from 'react-bootstrap';
 import type { GeneralDataFormProps } from '../../interfaces/GeneralDataForm.interface';
 import FormInput from '../FormInput/FormInput';
-import { FormStyled, OptionalText } from './GenerlaDataForm.styled';
+import { FormStyled, OptionalText } from './GeneralDataForm.styled';
 
 const GeneralDataForm = ({ data, onChange }: GeneralDataFormProps) => {
     return (
@@ -11,7 +11,7 @@ const GeneralDataForm = ({ data, onChange }: GeneralDataFormProps) => {
                 <FormInput
                     label="Motivo egreso*"
                     name='reason'
-                    value={data.reason}
+                    value={data.reason || ''}
                     onChange={onChange}
                     required
                 />
@@ -20,7 +20,7 @@ const GeneralDataForm = ({ data, onChange }: GeneralDataFormProps) => {
                 <FormInput
                     label="Responsable*"
                     name='personInCharge'
-                    value={data.personInCharge}
+                    value={data.personInCharge || ''}
                     onChange={onChange}
                     required
                 />
