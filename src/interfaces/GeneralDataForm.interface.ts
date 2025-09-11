@@ -1,6 +1,5 @@
-import type { GeneralDataProps } from './GeneralData.interface';
-
+import type { GeneralDataPros } from './GeneralData.interface';
 export interface GeneralDataFormProps {
-    data: GeneralDataProps;
+    data: GeneralDataPros;
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }

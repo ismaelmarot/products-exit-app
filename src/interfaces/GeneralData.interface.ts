@@ -1,4 +1,4 @@
-export interface GeneraDataPros {
+export interface GeneralDataPros {
     generalData: {
         reason?: string;
         departureDate?: string;
