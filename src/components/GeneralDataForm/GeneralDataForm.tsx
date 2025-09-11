@@ -11,7 +11,7 @@ const GeneralDataForm = ({ data, onChange }: GeneralDataFormProps) => {
                 <FormInput
                     label="Motivo egreso*"
                     name='reason'
-                    value={data.reason || ''}
+                    value={data.generalData.reason || ''}
                     onChange={onChange}
                     required
                 />
@@ -20,7 +20,7 @@ const GeneralDataForm = ({ data, onChange }: GeneralDataFormProps) => {
                 <FormInput
                     label="Responsable*"
                     name='personInCharge'
-                    value={data.personInCharge || ''}
+                    value={data.generalData.personInCharge || ''}
                     onChange={onChange}
                     required
                 />
@@ -31,7 +31,7 @@ const GeneralDataForm = ({ data, onChange }: GeneralDataFormProps) => {
                 <FormInput
                     label="Fecha salida*"
                     name='departureDate'
-                    value={data.departureDate || ''}
+                    value={data.generalData.departureDate || ''}
                     onChange={onChange}
                     type='date'
                     required
@@ -41,7 +41,7 @@ const GeneralDataForm = ({ data, onChange }: GeneralDataFormProps) => {
                 <FormInput
                     label={<>Fecha regreso<OptionalText>(opcional)</OptionalText></>}
                     name='returnDate'
-                    value={data.returnDate || ''}
+                    value={data.generalData.returnDate || ''}
                     onChange={onChange}
                     type='date'
                 />

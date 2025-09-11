@@ -11,14 +11,21 @@ const Step1GeneralData: React.FC<Step1GeneralDataComponentProps> = ({ onNext }) 
     const { setGeneralData } = context;
 
     const [data, setData] = useState<Step1GeneralDataProps>({
-        reason: '',
-        personInCharge: '',
-        departureDate: '',
-        returnDate: '',
+        generalData: {
+            reason: '',
+            personInCharge: '',
+            departureDate: '',
+            returnDate: '',
+        },
     });
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setData({ ...data, [e.target.name]: e.target.value });
+        setData({
+            generalData: {
+                ...data.generalData,
+                [e.target.name]: e.target.value,
+            },
+        });
     };
 
     const handleNext = () => {

@@ -1,30 +1,33 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import GeneralDataForm from './GeneralDataForm';
 import type { GeneralDataFormProps } from '../../interfaces/GeneralDataForm.interface';
 
 describe("GeneralDataForm", () => {
     const mockData: GeneralDataFormProps['data'] = {
-        reason: '',
-        personInCharge: '',
-        departureDate: '',
-        returnDate: '',
+        generalData: {
+            reason: '',
+            personInCharge: '',
+            departureDate: '',
+            returnDate: '',
+        }
     };
 
     const handleChange = vi.fn();
 
-    it("renderiza todos los inputs", () => {
+    beforeEach(() => {
+        vi.clearAllMocks();
         render(<GeneralDataForm data={mockData} onChange={handleChange} />);
+    });
 
+    it("renderiza todos los inputs", () => {
         expect(screen.getByLabelText(/Motivo egreso/i)).toBeInTheDocument();
         expect(screen.getByLabelText(/Responsable/i)).toBeInTheDocument();
         expect(screen.getByLabelText(/Fecha salida/i)).toBeInTheDocument();
-        expect(screen.getByLabelText(/Fecha regreso/i)).toBeInTheDocument(); // corregido
+        expect(screen.getByLabelText(/Fecha regreso/i)).toBeInTheDocument();
     });
 
     it("llama a onChange al escribir en los inputs", () => {
-        render(<GeneralDataForm data={mockData} onChange={handleChange} />);
-
         const reasonInput = screen.getByLabelText(/Motivo egreso/i);
         fireEvent.change(reasonInput, { target: { value: 'Venta' } });
         expect(handleChange).toHaveBeenCalledTimes(1);
