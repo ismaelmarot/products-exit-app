@@ -42,10 +42,10 @@ const Step3Preview: React.FC<Step3PreviewProps> = ({ onBack, onNext }) => {
         <div>
             <h2>Previsualización</h2>
             <Row className='mb-3'>
-                <Col md={6}><strong>Motivo:</strong> <span data-testid='motivo'>{generalData.reason}</span></Col>
-                <Col md={6}><strong>Responsable:</strong> <span data-testid='responsable'>{generalData.personInCharge}</span></Col>
-                <Col md={6}><strong>Salida:</strong> <span data-testid='salida'>{formatDate(generalData.departureDate)}</span></Col>
-                <Col md={6}><strong>Regreso:</strong> <span data-testid='regreso'>{formatDate(generalData.returnDate) || '-'}</span></Col>
+                <Col md={6}><strong>Motivo:</strong> <span data-testid='motivo'>{generalData.generalData.reason}</span></Col>
+                <Col md={6}><strong>Responsable:</strong> <span data-testid='responsable'>{generalData.generalData.personInCharge}</span></Col>
+                <Col md={6}><strong>Salida:</strong> <span data-testid='salida'>{formatDate(generalData.generalData.departureDate)}</span></Col>
+                <Col md={6}><strong>Regreso:</strong> <span data-testid='regreso'>{formatDate(generalData.generalData.returnDate) || '-'}</span></Col>
             </Row>
 
             <div className='d-flex gap-2 mb-3'>
