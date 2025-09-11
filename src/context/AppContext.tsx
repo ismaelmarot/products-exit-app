@@ -7,10 +7,12 @@ export const AppContext = createContext<AppContextProps | undefined>(undefined);
 
 export const AppProvider = ({ children }: { children: ReactNode }) => {
     const [generalData, setGeneralData] = useState<Step1GeneralDataProps>({
-        reason: '',
-        personInCharge: '',
-        departureDate: '',
-        returnDate: '',
+        generalData: {
+            reason: '',
+            personInCharge: '',
+            departureDate: '',
+            returnDate: '',
+        },
     });
 
     const [products, setProducts] = useState<ProductProps[]>([]);

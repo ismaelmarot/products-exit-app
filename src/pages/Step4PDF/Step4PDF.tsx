@@ -32,7 +32,14 @@ function Step4PDF({ onBack }: Step4PDFProps) {
   }, 0);
 
   const handleReiniciar = () => {
-    setGeneralData({ reason: '', personInCharge: '', departureDate: '', returnDate: '' });
+    setGeneralData({
+      generalData: {
+        reason: '',
+        personInCharge: '',
+        departureDate: '',
+        returnDate: '',
+      },
+    });
     setProducts([]);
     onBack?.();
   };
@@ -81,7 +88,7 @@ function Step4PDF({ onBack }: Step4PDFProps) {
 
       <div className='card'>
         <div className='card-body'>
-          <GeneralDataInfo generalData={generalData} />
+          <GeneralDataInfo generalData={generalData.generalData} />
 
           <h6>Productos</h6>
           <table className='table table-sm'>

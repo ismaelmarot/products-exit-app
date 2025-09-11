@@ -5,7 +5,14 @@ import type { ProductProps } from '../../interfaces/Product.interface';
 import { vi } from 'vitest';
 
 const mockContext = {
-  generalData: { reason: 'Test', personInCharge: 'Juan', departureDate: '2025-09-11', returnDate: '2025-09-12' },
+  generalData: { 
+    generalData: {
+      reason: 'Test',
+      personInCharge: 'Juan',
+      departureDate: '2025-09-11',
+      returnDate: '2025-09-12'
+    },
+  },
   setGeneralData: vi.fn(),
   products: [
     { description: 'Producto 1', producer: 'Prod1', category: 'Rubro1', code: '001', quantity: 2, price: 100 },
