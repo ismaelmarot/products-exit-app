@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import { Row, Col, Button } from 'react-bootstrap';
 import { AppContext } from '../../context/AppContext';
 import type { Step3PreviewProps } from '../../interfaces/Step3Preview.interface';
@@ -9,12 +9,15 @@ const Step3Preview: React.FC<Step3PreviewProps> = ({ onBack, onNext }) => {
     const context = useContext(AppContext);
     if (!context) return null;
 
-    const { generalData, products } = context;
-
-    const [order1, setOrder1] = useState('');
-    const [order2, setOrder2] = useState('');
-    const [order3, setOrder3] = useState('');
-    const [sortType, setSortType] = useState<'asc' | 'desc'>('asc');
+    // Usamos los valores directamente del contexto
+    const { 
+        generalData, 
+        products, 
+        order1, setOrder1, 
+        order2, setOrder2, 
+        order3, setOrder3, 
+        sortType, setSortType 
+    } = context;
 
     const isDisabled = (value: string, index: number) =>
         [order1, order2, order3].some((v, i) => v === value && i !== index);
