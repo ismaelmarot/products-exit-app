@@ -12,16 +12,6 @@ import type { AppContextProps } from '../../interfaces/AppContext.interface';
 vi.mock('../../helpers/sortProducts/sortProducts');
 vi.mock('../../helpers/exportPDF/exportPDF');
 
-const mockNavigate = vi.fn();
-
-vi.mock('react-router-dom', async () => {
-  const actual = await vi.importActual<any>('react-router-dom');
-  return {
-    ...actual,
-    useNavigate: () => mockNavigate,
-  };
-});
-
 const products = [
   {
     description: 'Producto 1',
@@ -47,6 +37,8 @@ const setOrder2 = vi.fn();
 const setOrder3 = vi.fn();
 const setSortType = vi.fn();
 
+const mockOnBack = vi.fn();
+
 const renderComponent = () =>
   render(
     <AppContext.Provider
@@ -66,7 +58,7 @@ const renderComponent = () =>
       } as AppContextProps}
     >
       <BrowserRouter>
-        <Step4PDF />
+        <Step4PDF onBack={mockOnBack} />
       </BrowserRouter>
     </AppContext.Provider>
   );
@@ -76,9 +68,9 @@ describe('Step4PDF', () => {
     (sortProducts as unknown as Mock).mockReturnValue(products);
     (exportPDF as unknown as Mock).mockReturnValue(undefined);
 
-    mockNavigate.mockClear();
     setGeneralData.mockClear();
     setProducts.mockClear();
+    mockOnBack.mockClear();
 
     global.URL.createObjectURL = vi.fn(() => 'blob:url');
     global.URL.revokeObjectURL = vi.fn();
@@ -113,7 +105,7 @@ describe('Step4PDF', () => {
     document.createElement = originalCreateElement;
   });
 
-  it('resets data and navigates when "Reiniciar" button is clicked', () => {
+  it('calls onBack and resets data when "Reiniciar" button is clicked', () => {
     renderComponent();
     const button = screen.getByText(/Reiniciar/i);
     fireEvent.click(button);
@@ -125,13 +117,13 @@ describe('Step4PDF', () => {
       returnDate: '',
     });
     expect(setProducts).toHaveBeenCalledWith([]);
-    expect(mockNavigate).toHaveBeenCalledWith('/step1');
+    expect(mockOnBack).toHaveBeenCalled();
   });
 
-  it('navigates to /productos when "Volver a productos" button is clicked', () => {
+  it('calls onBack when "Volver a productos" button is clicked', () => {
     renderComponent();
     const button = screen.getByText(/Volver a productos/i);
     fireEvent.click(button);
-    expect(mockNavigate).toHaveBeenCalledWith('/productos');
+    expect(mockOnBack).toHaveBeenCalled();
   });
 });

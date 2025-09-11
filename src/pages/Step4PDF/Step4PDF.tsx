@@ -1,5 +1,4 @@
 import { useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { AppContext } from '../../context/AppContext';
 import sortProducts from '../../helpers/sortProducts/sortProducts';
 import exportPDF from '../../helpers/exportPDF/exportPDF';
@@ -21,8 +20,6 @@ function Step4PDF({ onBack }: Step4PDFProps) {
     setProducts
   } = context;
 
-  const navigate = useNavigate();
-
   const sortedProducts = sortProducts(products, order1, order2, order3, sortType);
 
   const totalVenta = sortedProducts.reduce((acc, p) => {
@@ -34,7 +31,7 @@ function Step4PDF({ onBack }: Step4PDFProps) {
   const handleReiniciar = () => {
     setGeneralData({ reason: '', personInCharge: '', departureDate: '', returnDate: '' });
     setProducts([]);
-    navigate('/step1');
+    onBack?.();
   };
 
   const handleDownloadJSON = () => {
@@ -60,7 +57,6 @@ function Step4PDF({ onBack }: Step4PDFProps) {
         <button className='btn btn-secondary' onClick={onBack}>
           Volver a productos
         </button>
-
         <button
           className='btn btn-success'
           onClick={() => exportPDF(generalData, sortedProducts, totalVenta)}
