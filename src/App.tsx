@@ -48,7 +48,7 @@ function App() {
                 <Step3Preview onBack={handleBack} onNext={handleNext} />
               </Tab>
               <Tab eventKey='step4' title="4. Final / PDF">
-                <Step4PDF />
+                <Step4PDF onBack={() => setKey('step1')} />
               </Tab>
             </Tabs>
           </Container>

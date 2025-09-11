@@ -4,8 +4,9 @@ import { AppContext } from '../../context/AppContext';
 import sortProducts from '../../helpers/sortProducts/sortProducts';
 import exportPDF from '../../helpers/exportPDF/exportPDF';
 import GeneralDataInfo from '../../components/GeneralDataInfo/GeneralDataInfo';
+import type { Step4PDFProps } from '../../interfaces/Step4PDF.interface';
 
-function Step4PDF() {
+function Step4PDF({ onBack }: Step4PDFProps) {
   const context = useContext(AppContext);
   if (!context) return null;
 
@@ -56,7 +57,7 @@ function Step4PDF() {
       <h3>Resumen Final / Exportar</h3>
 
       <div className='mb-3 d-flex gap-2'>
-        <button className='btn btn-secondary' onClick={() => navigate('/productos')}>
+        <button className='btn btn-secondary' onClick={onBack}>
           Volver a productos
         </button>
 
