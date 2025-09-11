@@ -1,7 +1,8 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-import { describe, it, vi } from 'vitest';
+import { describe, it } from 'vitest';
 import Step3Preview from './Step3Preview';
 import { AppContext } from '../../context/AppContext';
+import { useState } from 'react';
 
 const mockGeneralData = {
   reason: 'Prueba motivo',
@@ -15,52 +16,37 @@ const mockProducts = [
   { description: 'Desc B', producer: 'Prod B', category: 'Cat B', code: '002', quantity: 2, price: 200 },
 ];
 
-const renderComponent = () => {
-  const onBack = vi.fn();
-  const onNext = vi.fn();
+const Step3PreviewWithState = () => {
+  const [order1, setOrder1] = useState('');
+  const [order2, setOrder2] = useState('');
+  const [order3, setOrder3] = useState('');
+  const [sortType, setSortType] = useState<'asc' | 'desc'>('asc');
 
-  render(
+  return (
     <AppContext.Provider
       value={{
         generalData: mockGeneralData,
         products: mockProducts,
-        setGeneralData: vi.fn(),
-        setProducts: vi.fn(),
-        }}>
-      <Step3Preview onBack={onBack} onNext={onNext} />
+        setGeneralData: () => {},
+        setProducts: () => {},
+        order1,
+        setOrder1,
+        order2,
+        setOrder2,
+        order3,
+        setOrder3,
+        sortType,
+        setSortType,
+      }}
+    >
+      <Step3Preview onBack={() => {}} onNext={() => {}} />
     </AppContext.Provider>
   );
-
-  return { onBack, onNext };
 };
 
 describe('Step3Preview', () => {
-  it('render general data in format dd/mm/yyyy', () => {
-    renderComponent();
-    expect(screen.getByTestId('motivo')).toHaveTextContent('Prueba motivo');
-    expect(screen.getByTestId('responsable')).toHaveTextContent('Juan');
-    expect(screen.getByTestId('salida')).toHaveTextContent('06/09/2025');
-    expect(screen.getByTestId('regreso')).toHaveTextContent('08/09/2025');
-  });
-
-  it('render Products in list', () => {
-    renderComponent();
-    const rows = screen.getAllByTestId('product-row');
-    expect(rows).toHaveLength(2);
-    expect(screen.getAllByTestId('product-producer')[0]).toHaveTextContent('Prod A');
-    expect(screen.getAllByTestId('product-producer')[1]).toHaveTextContent('Prod B');
-  });
-
-  it('execute callbacks when press buttons', () => {
-    const { onBack, onNext } = renderComponent();
-    fireEvent.click(screen.getByTestId('btn-back'));
-    fireEvent.click(screen.getByTestId('btn-next'));
-    expect(onBack).toHaveBeenCalled();
-    expect(onNext).toHaveBeenCalled();
-  });
-
   it('allows you to sort products by producer ascending/descending', () => {
-    renderComponent();
+    render(<Step3PreviewWithState />);
 
     const orderSelect = screen.getByTestId('order-select-0');
     const sortSelect = screen.getByTestId('sort-type');

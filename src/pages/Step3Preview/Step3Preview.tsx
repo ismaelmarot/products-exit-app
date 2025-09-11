@@ -9,7 +9,6 @@ const Step3Preview: React.FC<Step3PreviewProps> = ({ onBack, onNext }) => {
     const context = useContext(AppContext);
     if (!context) return null;
 
-    // Usamos los valores directamente del contexto
     const { 
         generalData, 
         products, 

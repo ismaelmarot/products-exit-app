@@ -1,8 +1,9 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { AppContext } from '../../context/AppContext';
 import sortProducts from '../../helpers/sortProducts/sortProducts';
 import exportPDF from '../../helpers/exportPDF/exportPDF';
 import GeneralDataInfo from '../../components/GeneralDataInfo/GeneralDataInfo';
+import DownloadJSON from '../../components/DownloadJSON/DownloadJSON';
 import type { Step4PDFProps } from '../../interfaces/Step4PDF.interface';
 
 function Step4PDF({ onBack }: Step4PDFProps) {
@@ -20,6 +21,8 @@ function Step4PDF({ onBack }: Step4PDFProps) {
     setProducts
   } = context;
 
+  const [showJSONModal, setShowJSONModal] = useState(false);
+
   const sortedProducts = sortProducts(products, order1, order2, order3, sortType);
 
   const totalVenta = sortedProducts.reduce((acc, p) => {
@@ -34,29 +37,15 @@ function Step4PDF({ onBack }: Step4PDFProps) {
     onBack?.();
   };
 
-  const handleDownloadJSON = () => {
-    const data = {
-      generalData,
-      products: sortedProducts,
-      totalVenta,
-    };
-    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'salida-productos.json';
-    a.click();
-    URL.revokeObjectURL(url);
-  };
-
   return (
     <div className='mt-3'>
       <h3>Resumen Final / Exportar</h3>
 
-      <div className='mb-3 d-flex gap-2'>
+      <div className='mb-3 d-flex gap-2 flex-wrap'>
         <button className='btn btn-secondary' onClick={onBack}>
           Volver a productos
         </button>
+
         <button
           className='btn btn-success'
           onClick={() => exportPDF(generalData, sortedProducts, totalVenta)}
@@ -65,9 +54,10 @@ function Step4PDF({ onBack }: Step4PDFProps) {
           Descargar PDF
         </button>
 
-        <button className='btn btn-info' onClick={handleDownloadJSON}>
+        <button className='btn btn-info' onClick={() => setShowJSONModal(true)}>
           Descargar JSON
         </button>
+        <DownloadJSON show={showJSONModal} onHide={() => setShowJSONModal(false)} />
 
         <button
           className='btn btn-warning'
@@ -88,9 +78,10 @@ function Step4PDF({ onBack }: Step4PDFProps) {
           Reiniciar
         </button>
       </div>
+
       <div className='card'>
         <div className='card-body'>
-          <GeneralDataInfo generalData={ generalData } />
+          <GeneralDataInfo generalData={generalData} />
 
           <h6>Productos</h6>
           <table className='table table-sm'>
