@@ -3,15 +3,19 @@ import { describe, it } from 'vitest';
 import Step3Preview from './Step3Preview';
 import { AppContext } from '../../context/AppContext';
 import { useState } from 'react';
+import type { Step1GeneralDataProps } from '../../interfaces/Step1GeneralData.interface';
+import type { ProductProps } from '../../interfaces/Product.interface';
 
-const mockGeneralData = {
-  reason: 'Prueba motivo',
-  personInCharge: 'Juan',
-  departureDate: '2025-09-06',
-  returnDate: '2025-09-08',
+const mockGeneralData: Step1GeneralDataProps = {
+  generalData: {
+    reason: 'Prueba motivo',
+    personInCharge: 'Juan',
+    departureDate: '2025-09-06',
+    returnDate: '2025-09-08',
+  }
 };
 
-const mockProducts = [
+const mockProducts: ProductProps[] = [
   { description: 'Desc A', producer: 'Prod A', category: 'Cat A', code: '001', quantity: 1, price: 100 },
   { description: 'Desc B', producer: 'Prod B', category: 'Cat B', code: '002', quantity: 2, price: 200 },
 ];
