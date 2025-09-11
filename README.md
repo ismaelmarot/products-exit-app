@@ -1,69 +1,122 @@
-# React + TypeScript + Vite
+# Product Exit App 🛒
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<p align="center">
+  <a href="https://ismaelmarot.github.io/products-exit-app/#/general">
+    <img 
+      src="https://img.shields.io/badge/🚀%20Ir%20a%20la%20aplicación-blue?style=for-the-badge&logoWidth=30" 
+      alt="Ir a la aplicación"
+    >
+  </a>
+</p>
 
-Currently, two official plugins are available:
+A modern web application built with **React**, **TypeScript**, **Vite**, and **Bootstrap**, designed for managing product exit efficiently.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
+[![Node Version](https://img.shields.io/badge/Node-18.12+-blue.svg)](https://nodejs.org/)
+[![React](https://img.shields.io/badge/React-18-blue.svg)](https://reactjs.org/)
+[![Vite](https://img.shields.io/badge/Vite-7.1.2-orange.svg)](https://vitejs.dev/)
+---
 
-## Expanding the ESLint configuration
+## Features
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+1. **📝 General Information Input**  
+   Capture essential data: Reason, Person on charge, Departure date, Return date and other relevant details.
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+4. **📦 Product Exit Management**  
+   - Exit product details: Description, Category, Producer, Quantity, Code and Sale Price.
+   - Dynamically view the list of added products  
+   - Edit or remove products individually
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+5. **🖨️ Final Review & Export**  
+   - View the complete product list  
+   - Export or print the list as a PDF
+   - Export the list as a .JSON
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+---
+
+##🛠 Tech Stack
+
+- **React** – Frontend library for building user interfaces  
+- **TypeScript** – Strongly typed JavaScript for safer code  
+- **Vite** – Fast development server with Hot Module Replacement  
+- **Bootstrap** – Responsive UI components  
+- **jsPDF** – PDF generation for export/printing  
+
+---
+
+##🚀 Getting Started
+
+### Prerequisites
+
+- Node.js >= 18.12
+- npm or yarn
+
+### Installation
+```bash
+git clone https://github.com/ismaelmarot/product-entry-app.git
+cd product-entry-app
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Running the App
+```bash
+npm run dev
 ```
+Open your browser at http://localhost:5173
+
+---
+### Project Structure
+```bash
+product-entry-app/
+├─ src/
+│  ├─ components/     # React components (forms, product list, navigation)
+│  ├─ pages/          # Step-by-step pages
+│  ├─ context/        # App context for global state
+│  ├─ helpers/        # Utility functions
+│  └─ App.tsx         # Main app entry
+├─ public/            # Static assets
+├─ package.json
+└─ vite.config.ts
+```
+
+---
+
+### 🤝 Contributing
+1. Fork the repository
+
+2. Create your feature branch (git checkout -b feature/my-feature)
+
+3. Commit your changes (git commit -m "feat: my new feature")
+
+4. Push to the branch (git push origin feature/my-feature)
+
+5. Open a Pull Request
+
+_Please follow the code style and naming conventions._
+
+---
+### 📝 Notes
+
+Make sure Node.js version is compatible (>=18.12)
+
+All added products are stored temporarily in app state
+
+Exported PDFs are generated using jsPDF
+
+---
+### 📄 License
+
+This project is licensed under the MIT License.
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
+
+---
+### 📷 Screenshots
+
+<img src="src/screenshots/Screenshot01.png" alt="Captura 1" />
+
+<img src="src/screenshots/Screenshot02.png" alt="Captura 2" />
+
+<img src="src/screenshots/Screenshot03.png" alt="Captura 3" />
+
+<img src="src/screenshots/Screenshot04.png" alt="Captura 4" />
