@@ -1,5 +1,5 @@
 {
-  "title": "Cash Counter",
-  "description": "App para contar dinero fácilmente.",
+  "title": "Products Exit App",
+  "description": "A modern web application built with React, TypeScript, Vite and Bootstrap, designed for managing product exit efficiently.",
   "technologies": ["React", "Vite", "TypeScript", "jspdf", "bootstrap"]
 }
