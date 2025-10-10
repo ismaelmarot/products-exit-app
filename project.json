@@ -1,5 +1,5 @@
 {
   "title": "Products Exit App",
-  "description": "A modern web application built with React, TypeScript, Vite and Bootstrap, designed for managing product exit efficiently.",
+  "description": "Web app for managing product exit efficiently with essential data ditails.",
   "technologies": ["React", "Vite", "TypeScript", "jspdf", "bootstrap"]
 }
