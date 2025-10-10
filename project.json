@@ -1,5 +1,6 @@
 {
   "title": "Products Exit App",
-  "description": "Web app for managing product exit efficiently with essential data ditails.",
+  "short_description": "Web app for managing product exit efficiently with essential data ditails.",
+  "long_description": "A modern web app built with React, TypeScript, Vite, and Bootstrap for efficient product exit management. It lets users record general info (reason, responsible person, dates) and manage product details (description, category, quantity, price, etc.). Products can be viewed, edited, or removed dynamically, and the final list can be exported as PDF or JSON. Powered by React, TypeScript, Vite, Bootstrap, and jsPDF.",
   "technologies": ["React", "Vite", "TypeScript", "jspdf", "bootstrap"]
 }
