@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Colors } from '../../constants/colors';
 
 export const FooterStyled = styled.footer`
     margin-top: 1rem;
@@ -6,6 +7,6 @@ export const FooterStyled = styled.footer`
 `;
 
 export const DividingLine = styled.span`
-    color: rgba(222, 226, 230, 1);
+    color: ${Colors.lightGrey};
     font-weight: bolder;
 `;
