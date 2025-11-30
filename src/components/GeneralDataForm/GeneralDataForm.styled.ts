@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Form } from 'react-bootstrap';
-
+import { Colors } from '../../constants/colors';
 export const FormStyled = styled(Form)`
     padding: 1rem;
 
@@ -20,6 +20,6 @@ export const FormStyled = styled(Form)`
 
 export const OptionalText = styled.span`
     font-size: 0.6rem;
-    color: gray;
+    color: ${Colors.grey};
     margin-left: 0.2rem;
 `;
