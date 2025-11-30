@@ -1,9 +1,10 @@
 import styled from 'styled-components';
 import { Form } from 'react-bootstrap';
+import { Colors } from '../../../constants/colors';
 
 export const FormStyled = styled(Form)`
   padding: 1rem;
-  border: 1px solid #99a1af;
+  border: 1px solid ${Colors.black};
   border-radius: 5px;
 
   .form-group {
